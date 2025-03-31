@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: .
+    volumes:
+      - .:/sefa_frontend
+      - /sefa_frontend/node_modules
+    ports:
+      - 3001:3001
+    working_dir: /sefa_frontend
+    tty: true
+    stdin_open: true
