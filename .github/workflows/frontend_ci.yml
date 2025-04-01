@@ -1,0 +1,40 @@
+name: CI/CD
+
+on:
+  workflow_dispatch: #Github上でworkflowを手動実行するUIを有効にする
+    inputs:
+      ref:
+        description: branch|tag|SHA to checkout
+        default: 'main'
+        required: true
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest #GitHubの最新のUbuntu環境（仮想マシン）で実行。
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3 #GitHubリポジトリのソースコードをワークフローマシンに取得する。
+
+      # - name: Install dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y curl
+      #     curl -fsSL https://get.docker.com -o get-docker.sh
+      #     sh get-docker.sh
+      #     sudo apt-get install -y docker-compose
+      #     rm get-docker.sh
+
+      - name: Build and run Docker containers
+        run: |
+          docker compose build --no-cache
+          docker compose up -d
+
+      - name: Conduct test
+        run: |
+          docker compose exec frontend npm run test-ci
+
+      - name: Stop and remove Docker containers
+        run: docker compose down
