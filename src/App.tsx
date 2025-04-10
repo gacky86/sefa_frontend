@@ -9,6 +9,9 @@ import CommonLayout from "./components/layouts/CommonLayout";
 import { getCurrentUser } from "./lib/api/auth";
 import { User } from "./interfaces/index";
 
+// Redux
+import {store} from "./store/index";
+import { Provider } from 'react-redux';
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -71,17 +74,21 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <AuthContext.Provider value={{loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
-        <CommonLayout>
-          <Routes>
-            <Route path='/signup' element={<SignUp/>}/>
-            <Route path='/signin' element={<SignIn/>}/>
-            <Route element={<Private/>}>
-              <Route path='/' element={<Home/>}/>
-            </Route>
-          </Routes>
-        </CommonLayout>
-      </AuthContext.Provider>
+      <div className='bg-super-light-sky-blue h-screen'>
+      <Provider store={store}>
+        <AuthContext.Provider value={{loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
+          <CommonLayout>
+            <Routes>
+              <Route path='/signup' element={<SignUp/>}/>
+              <Route path='/signin' element={<SignIn/>}/>
+              <Route element={<Private/>}>
+                <Route path='/' element={<Home/>}/>
+              </Route>
+            </Routes>
+          </CommonLayout>
+        </AuthContext.Provider>
+        </Provider>
+      </div>
     </Router>
   )
 }
