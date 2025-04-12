@@ -1,8 +1,8 @@
-import FlashCardsList from "./flashcards/FlashCardsList";
+import FlashCardsList from "components/pages/flashcards/FlashCardsList";
 import { IoIosAddCircle } from "react-icons/io";
-import Modal from "../layouts/Modal";
+import Modal from "components/layouts/Modal";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/modalSlice";
+import { openModal } from "store/modalSlice";
 
 
 const Home = () => {

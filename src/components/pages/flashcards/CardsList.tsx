@@ -1,31 +1,33 @@
+import { useEffect, useState } from "react";
 import { FlashCard, Card } from "../../../interfaces/index";
+import { getCardList } from "lib/api/card";
 
 import { IoIosAddCircle } from "react-icons/io";
 import { MdModeEdit } from "react-icons/md";
 
 import { useDispatch } from "react-redux";
-import { openModal } from "../../../store/modalSlice";
+import { openModal } from "store/modalSlice";
 
-// データベースから持ってくる予定のcard object
-const cards = [{
-  id: 0,
-  flashcard_id: 0,
-  input_proficiency: 50,
-  output_proficiency: 50,
-  english: 'englishword',
-  japanese: '日本語の文字列',
-  },
-  {
-  id: 1,
-  flashcard_id: 0,
-  input_proficiency: 50,
-  output_proficiency: 50,
-  english: 'deprived of sleep',
-  japanese: '寝不足',
-}]
 
 const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
+
+  const [cards, setCards] = useState<Card[]>([]);
+
+  const handleGetCardList = () => {
+    getCardList()
+    .then((res: AxiosResponse<Card[]>) => {
+      setCards(res.data);
+    })
+    .catch((e: AxiosError<{ error: string }>) => {
+      console.log(e);
+    })
+  }
+
+  useEffect(() => {
+    handleGetCardList();
+  }, []);
+
   return (
     <div>
       <div className="p-4 text-center">
@@ -54,7 +56,7 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
       </div>
       <div className="text-right">
         <button className="text-auqa-blue text-5xl"
-                onClick={() => dispatch(openModal({modalType: 'newCard'}))}><IoIosAddCircle/></button>
+                onClick={() => dispatch(openModal({modalType: 'newCard', modalProps: flashcard}))}><IoIosAddCircle/></button>
       </div>
     </div>
   )

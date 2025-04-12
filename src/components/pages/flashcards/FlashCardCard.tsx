@@ -1,9 +1,9 @@
 import { FaLock } from "react-icons/fa";
 // Redux
 import { useDispatch } from "react-redux";
-import { openModal } from "../../../store/modalSlice";
+import { openModal } from "store/modalSlice";
 
-import { FlashCard } from "../../../interfaces/index";
+import { FlashCard } from "interfaces/index";
 
 const FlashCardCard = ({flashcard}:{flashcard:FlashCard}) => {
 
@@ -21,13 +21,15 @@ const FlashCardCard = ({flashcard}:{flashcard:FlashCard}) => {
         <div className="col-span-2 col-start-6 row-start-2 ml-[6px] leading-none text-start">Input</div>
         <div className="col-span-3 col-start-8 row-start-2 flex items-center">
           <div className="w-[100%] bg-white border-[0.5px] rounded-full h-[10px] text-center">
-            <div className={`bg-auqa-blue h-2 rounded-full`} style={{ width: `${flashcard.input_progress}%` }}></div>
+            {/* 習熟度は後々計算して出せるようにする */}
+            <div className={`bg-auqa-blue h-2 rounded-full`} style={{width: "45%"}}></div>
           </div>
         </div>
         <div className="col-span-2 col-start-6 row-start-3 ml-[6px] leading-none text-start">Output</div>
         <div className="col-span-3 col-start-8 row-start-3 flex items-center">
           <div className="w-[100%] bg-white border-[0.5px] rounded-full h-[10px] text-center">
-          <div className={`bg-auqa-blue h-2 rounded-full`} style={{ width: `${flashcard.output_progress}%` }}></div>
+            {/* 習熟度は後々計算して出せるようにする */}
+          <div className={`bg-auqa-blue h-2 rounded-full`} style={{width: "50%"}}></div>
           </div>
         </div>
       </button>

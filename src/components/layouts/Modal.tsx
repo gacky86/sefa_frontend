@@ -7,7 +7,7 @@ import { RootState } from "../../store";
 import { closeModal } from "../../store/modalSlice";
 
 // Components
-import ModalManager from "./ModalManager";
+import ModalManager from "components/layouts/ModalManager";
 
 
 const Modal = () => {

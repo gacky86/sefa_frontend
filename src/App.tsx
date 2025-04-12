@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
-import { useEffect, useState, createContext } from 'react';
+import { useEffect } from 'react';
 
 import SignUp from "./components/pages/SignUp";
 import SignIn from "./components/pages/SignIn";
@@ -7,61 +7,47 @@ import Home from "./components/pages/Home";
 import CommonLayout from "./components/layouts/CommonLayout";
 
 import { getCurrentUser } from "./lib/api/auth";
-import { User } from "./interfaces/index";
+// import { User } from "./interfaces/index";
 
 // Redux
-import {store} from "./store/index";
-import { Provider } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, clearUser, setLoading } from 'store/authSlice';
+import { RootState } from 'store/index';
 
-// グローバルで扱う変数・関数
-export const AuthContext = createContext({} as {
-  loading: boolean
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  isSignedIn: boolean
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
-  currentUser: User | undefined
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
-})
+
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  // userオブジェクトは別ファイルで型定義している
-  const [currentUser, setCurrentUser] = useState<User | undefined>();
+  const dispatch = useDispatch();
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
+    dispatch(setLoading(true));
     try {
       const res = await getCurrentUser()
-
       if (res?.data.isLogin === true) {
-        setIsSignedIn(true)
-        setCurrentUser(res?.data.data)
-
-        console.log(res?.data.data)
+        dispatch(setUser(res?.data.data));
       } else {
-        console.log("No current user")
+        dispatch(clearUser());
       }
     } catch (err) {
-      console.log(err)
-      console.log("eeee");
+      dispatch(clearUser());
     }
-
-    setLoading(false)
   }
 
   useEffect(() => {
     handleGetCurrentUser()
-  }, [setCurrentUser])
+  }, [dispatch])
 
 
   // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
   // propsの中のchildrenを分割代入
   // propsの中のchildrenの型を定義したいので、以下のような記述になる
+  const { isSignedIn, isLoading } = useSelector((state: RootState) => state.auth);
+
   const Private = () => {
-    if (!loading) {
+    if (!isLoading) {
       if (isSignedIn) {
         return <Outlet/>
       } else {
@@ -75,8 +61,6 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className='bg-super-light-sky-blue h-screen'>
-      <Provider store={store}>
-        <AuthContext.Provider value={{loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
           <CommonLayout>
             <Routes>
               <Route path='/signup' element={<SignUp/>}/>
@@ -86,8 +70,6 @@ const App: React.FC = () => {
               </Route>
             </Routes>
           </CommonLayout>
-        </AuthContext.Provider>
-        </Provider>
       </div>
     </Router>
   )

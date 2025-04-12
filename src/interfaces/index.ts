@@ -28,24 +28,22 @@ export interface User {
 
 export interface FlashCard {
   id: number,
-  user_id: number,
+  userId: number,
   title: string,
-  description: string,
+  description?: string,
   shared: boolean,
-  input_target: string,
-  output_target: string,
-  input_progress: number,
-  output_progress: number
+  inputTarget: number,
+  outputTarget: number
 }
 
 export interface Card {
   id: number,
-  flashcard_id: number,
-  input_proficiency: number,
-  output_proficiency: number,
+  flashcardId: number,
+  inputProficiency: number,
+  outputProficiency: number,
   english: string,
   japanese: string,
-  source_video_url?: string,
-  reviewed_date?: string,
-  source_video_timestamp?: string
+  sourceVideoUrl?: string,
+  reviewedDate?: string,
+  sourceVideoTimestamp?: string
 }

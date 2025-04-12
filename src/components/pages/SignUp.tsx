@@ -1,8 +1,8 @@
 import { useState } from 'react';
 // import Cookies from "js-cookie"
 
-import { signUp } from "../../lib/api/auth";
-import { SignUpParams } from "../../interfaces/index";
+import { signUp } from "lib/api/auth";
+import { SignUpParams } from "interfaces/index";
 import { useNavigate } from 'react-router-dom';
 
 
