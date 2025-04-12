@@ -1,15 +1,15 @@
 // Redux
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "store/index";
 
 // Components
-import NewFlashCard from "../../components/pages/flashcards/NewFlashCard";
-import FlashCardDetailModal from "../../components/pages/flashcards/FlashCardDetailModal";
-import FlashCardSettingModal from "../../components/pages/flashcards/FlashCardSettingModal";
-import CardsList from "../../components/pages/flashcards/CardsList";
-import CardEdit from "../../components/pages/flashcards/CardEdit";
-import NewCard from "../../components/pages/flashcards/NewCard";
-import FlashCardDelete from "../../components/pages/flashcards/FlashCardDelete";
+import NewFlashcard from "components/pages/flashcards/NewFlashCard";
+import FlashcardDetailModal from "components/pages/flashcards/FlashCardDetailModal";
+import FlashcardSettingModal from "components/pages/flashcards/FlashCardSettingModal";
+import CardsList from "components/pages/flashcards/CardsList";
+import CardEdit from "components/pages/flashcards/CardEdit";
+import NewCard from "components/pages/flashcards/NewCard";
+import FlashcardDelete from "components/pages/flashcards/FlashCardDelete";
 
 const ModalManager = () => {
   const { isVisible, modalType, modalProps } = useSelector((state: RootState) => state.modal);
@@ -18,20 +18,19 @@ const ModalManager = () => {
 
   switch (modalType) {
     case 'flashcard':
-      return <FlashCardDetailModal flashcard={modalProps} />;
+      return <FlashcardDetailModal flashcard={modalProps} />;
     case 'newFlashcard':
-      return <NewFlashCard />;
+      return <NewFlashcard />;
     case 'flashcardSetting':
-      return <FlashCardSettingModal flashcard={modalProps} />;
+      return <FlashcardSettingModal flashcard={modalProps} />;
     case 'cardsList':
       return <CardsList flashcard={modalProps} />;
     case 'cardEdit':
       return <CardEdit flashcard={modalProps.flashcard} card={modalProps.card}/>;
-      // return <CardEdit flashcard={modalProps} card={modalProps}/>;
     case 'newCard':
-      return <NewCard  />;
+      return <NewCard flashcard={modalProps} />;
     case 'flashcardDelete':
-      return <FlashCardDelete  flashcard={modalProps} />;
+      return <FlashcardDelete  flashcard={modalProps} />;
     default:
       return null;
   }

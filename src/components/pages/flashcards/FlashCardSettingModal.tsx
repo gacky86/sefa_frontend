@@ -3,20 +3,24 @@ import { FlashCard } from "../../../interfaces/index";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
-import { openModal } from "../../../store/modalSlice";
+import { openModal } from "store/modalSlice";
+
+import { updateFlashcard } from "lib/api/flashcard";
 
 
 const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
-  const [title, setTitle] = useState(flashcard.title);
-  const [description, setDescription] = useState(flashcard.description);
-  const [shared, setShared] = useState(flashcard.shared);
-  const [inputTarget, setInputTarget] = useState(flashcard.input_target);
-  const [outputTarget, setOutputTarget] = useState(flashcard.output_target);
+  const [flashcardParams, setFlashcardParams] = useState<FlashCard>(flashcard);
 
   const dispatch = useDispatch();
 
   const handleUpdateFlashCard = () => {
-    console.log('handleUpdateFlashCard');
+    updateFlashcard(flashcard.id, flashcardParams)
+    .then(() => {
+      console.log('updated');
+    })
+    .catch((e) => {
+      console.log(e);
+    })
   }
 
   return (
@@ -24,20 +28,24 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
       <div className="p-4 text-center">
         <p className="text-xl">編集</p>
         <div className="mx-auto w-[80%] border-b-1 pb-2">
-          <input type="text" id="title" value={title} placeholder="単語帳のタイトル" className="w-[100%] border-1 rounded-sm px-1 mt-3 mb-2 " onChange={(e) => setTitle(e.target.value)}/>
-          <textarea id="description" value={description} placeholder="単語帳の説明" className="w-[100%] border-1 rounded-sm" onChange={(e) => setDescription(e.target.value)}></textarea>
+          <input type="text" id="title" value={flashcardParams.title} placeholder="単語帳のタイトル"
+          className="w-[100%] border-1 rounded-sm px-1 mt-3 mb-2 "
+          onChange={(e) => setFlashcardParams({...flashcardParams, title: e.target.value})}/>
+          <textarea id="description" value={flashcardParams.description} placeholder="単語帳の説明"
+          className="w-[100%] border-1 rounded-sm"
+          onChange={(e) => setFlashcardParams({...flashcardParams, description: e.target.value})}></textarea>
         </div>
         <div className="mx-auto w-[80%] border-b-1 py-3 grid grid-cols-2 grid-rows-1 content-between ">
           <div>
-            <p className="text-left leading-none">公開 : {shared ? 'ON' : 'OFF'}</p>
+            <p className="text-left leading-none">公開 : {flashcardParams.shared ? 'ON' : 'OFF'}</p>
           </div>
           <div className="flex justify-end">
             <div>
-              <span onClick={() => setShared(!shared)}
+              <span onClick={() => setFlashcardParams({...flashcardParams, shared: !flashcardParams.shared})}
               className={`block w-[2em] cursor-pointer rounded-full p-[1px] transition-colors duration-300
-              ${shared ? 'bg-blue-500' : 'bg-gray-500'}`}>
+              ${flashcardParams.shared ? 'bg-blue-500' : 'bg-gray-500'}`}>
                 <span className={`block h-[1em] w-[1em] rounded-full bg-white transition-transform duration-300
-                ${shared ? 'translate-x-[calc(100%-2px)]' : 'translate-x-0'}`}/>
+                ${flashcardParams.shared ? 'translate-x-[calc(100%-2px)]' : 'translate-x-0'}`}/>
               </span>
             </div>
           </div>
@@ -47,12 +55,16 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
           <div className="grid grid-cols-2 grid-rows-2 gap-2">
               <div className="-leading-1 text-start">Input</div>
               <div>
-                <input type="number" id="input-target" value={inputTarget} className="border-1 rounded-sm px-1 w-[75%] mr-1" onChange={(e) => setInputTarget(e.target.value)}/>
+                <input type="number" id="input-target" value={flashcardParams.inputTarget}
+                className="border-1 rounded-sm px-1 w-[75%] mr-1"
+                onChange={(e) => setFlashcardParams({...flashcardParams, inputTarget: Number(e.target.value)})}/>
                 枚
               </div>
               <div className="-leading-1 text-start">Output</div>
               <div>
-                <input type="number" id="output-target" value={outputTarget} className="border-1 rounded-sm px-1 w-[75%] mr-1" onChange={(e) => setOutputTarget(e.target.value)}/>
+                <input type="number" id="output-target" value={flashcardParams.outputTarget}
+                className="border-1 rounded-sm px-1 w-[75%] mr-1"
+                onChange={(e) => setFlashcardParams({...flashcardParams, outputTarget: Number(e.target.value)})}/>
                 枚
               </div>
           </div>

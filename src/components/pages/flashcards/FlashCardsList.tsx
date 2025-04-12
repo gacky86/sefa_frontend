@@ -1,30 +1,28 @@
 
-import FlashCardCard from "./FlashCardCard";
+import FlashCardCard from "components/pages/flashcards/FlashCardCard";
+import { getFlashcardList } from "lib/api/flashcard";
+import { useEffect, useState } from "react";
+import { FlashCard } from "interfaces/index";
+
+import { type AxiosResponse, type AxiosError } from 'axios';
 
 
-const FlashCardsList = () => {
-  const flashcards = [{
-    id: 0,
-    user_id: 0,
-    title: "Daily Conversation",
-    description: "日常で使うフレーズ集",
-    shared: false,
-    input_target: '50',
-    output_target: '50',
-    input_progress: 45,
-    output_progress: 50
-  },
-  {
-    id: 1,
-    user_id: 0,
-    title: "words in programming",
-    description: "プログラミングで使う単語など",
-    shared: true,
-    input_target: '50',
-    output_target: '50',
-    input_progress: 80,
-    output_progress: 50
-  }]
+const FlashcardsList = () => {
+  const [flashcards, setFlashcards] = useState<FlashCard[]>([]);
+
+  const handleGetFlashcardList = () => {
+    getFlashcardList()
+    .then((res: AxiosResponse<FlashCard[]>) => {
+      setFlashcards(res.data);
+    })
+    .catch((e: AxiosError<{ error: string }>) => {
+      console.log(e);
+    })
+  }
+
+  useEffect(() => {
+    handleGetFlashcardList();
+  }, [])
 
 
   return (
@@ -39,4 +37,4 @@ const FlashCardsList = () => {
   )
 }
 
-export default FlashCardsList
+export default FlashcardsList
