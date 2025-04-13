@@ -3,6 +3,8 @@ import { FlashCard, Card } from "interfaces/index";
 
 import { updateCard } from "lib/api/card";
 
+import { AxiosError } from "axios";
+
 const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
   const [cardParams, setCardParams] = useState<Card>(card);
 
@@ -11,7 +13,7 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
     .then(() => {
       console.log('updated');
     })
-    .catch((e) => {
+    .catch((e: AxiosError) => {
       console.log(e);
     })
   }

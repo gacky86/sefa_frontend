@@ -1,13 +1,16 @@
 import { FlashCard } from "interfaces/index";
 import { deleteFlashcard } from "lib/api/flashcard";
 
+import { AxiosError } from "axios";
+
+
 const FlashCardDeleteModal = ({flashcard}:{flashcard:FlashCard}) => {
   const handleDeleteFlashcard = () => {
     deleteFlashcard(flashcard.id)
     .then(() => {
       console.log('successfully deleted');
     })
-    .catch((e) => {
+    .catch((e: AxiosError) => {
       console.log(e);
     })
   }

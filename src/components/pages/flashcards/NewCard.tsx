@@ -3,6 +3,8 @@ import { useState } from "react";
 import { createCard } from "lib/api/card";
 import { FlashCard, Card } from "interfaces/index";
 
+import { AxiosError } from "axios";
+
 const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
   const initialCardParams = {
     id: 0,
@@ -21,7 +23,7 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
       console.log('successfully created a new card');
 
     })
-    .catch((e) => {
+    .catch((e: AxiosError) => {
       console.log(e);
     })
   }

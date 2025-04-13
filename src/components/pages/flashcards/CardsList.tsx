@@ -8,6 +8,8 @@ import { MdModeEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
 
+import { AxiosResponse, AxiosError } from "axios";
+
 
 const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
