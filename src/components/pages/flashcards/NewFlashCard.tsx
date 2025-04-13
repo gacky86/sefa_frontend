@@ -9,14 +9,17 @@ import { RootState } from 'store/index';
 const NewFlashCard = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 
+  // initialFlashcard
+  if (!user) return null;
+
   const initialFlashcard: FlashCard = {
     id: 0,
-    user_id: user.id,
+    userId: user.id,
     title: "",
     description: "",
     shared: false,
-    input_target: 50,
-    output_target: 50
+    inputTarget: 50,
+    outputTarget: 50
   }
 
   const [flashcardParams, setFlashcardParams] = useState<FlashCard>(initialFlashcard);

@@ -22,8 +22,6 @@ export interface User {
   nickname?: string
   image?: string
   allowPasswordChange: boolean
-  created_at: Date
-  updated_at: Date
 }
 
 export interface FlashCard {
