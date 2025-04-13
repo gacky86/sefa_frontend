@@ -4,7 +4,7 @@ import { getFlashcardList } from "lib/api/flashcard";
 import { useEffect, useState } from "react";
 import { FlashCard } from "interfaces/index";
 
-import { type AxiosResponse, type AxiosError } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 
 
 const FlashcardsList = () => {
@@ -15,7 +15,7 @@ const FlashcardsList = () => {
     .then((res: AxiosResponse<FlashCard[]>) => {
       setFlashcards(res.data);
     })
-    .catch((e: AxiosError<{ error: string }>) => {
+    .catch((e: AxiosError) => {
       console.log(e);
     })
   }

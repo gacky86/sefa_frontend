@@ -7,6 +7,8 @@ import { openModal } from "store/modalSlice";
 
 import { updateFlashcard } from "lib/api/flashcard";
 
+import { AxiosError } from "axios";
+
 
 const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   const [flashcardParams, setFlashcardParams] = useState<FlashCard>(flashcard);
@@ -18,7 +20,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
     .then(() => {
       console.log('updated');
     })
-    .catch((e) => {
+    .catch((e: AxiosError) => {
       console.log(e);
     })
   }
