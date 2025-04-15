@@ -33,14 +33,10 @@ const SignIn: React.FC = () => {
 
         // ログイン成功時のresponseのヘッダー情報をReduxに保存
         const data = res.data;
-        const accessToken = res.headers["access-token"]
-        const client = res.headers["client"]
-        const uid = res.headers["uid"]
 
         // isAuthenticated, isLoadingはreducerで自動的にtrueに設定される
         dispatch(setUser({
           user : data.data,
-          tokens: {accessToken, client, uid}
         }));
 
         // ルートディレクトリにリダイレクト

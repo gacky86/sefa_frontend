@@ -6,35 +6,27 @@ type AuthState = {
   isSignedIn: boolean;
   isLoading: boolean;
   user: User | null;
-  tokens: {
-    accessToken: string,
-    client: string,
-    uid: string,
-  } | null
 };
 
 const initialState: AuthState = {
   isSignedIn: false,
-  isLoading: false,
+  isLoading: true,
   user: null,
-  tokens: null
 }
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<{ user: User; tokens: AuthState['tokens'] }>) {
+    setUser(state, action: PayloadAction<{ user: User }>) {
       state.isSignedIn = true;
       state.isLoading = false;
       state.user = action.payload.user;
-      state.tokens = action.payload.tokens;
     },
     clearUser(state) {
       state.isSignedIn = false,
       state.isLoading = false;
-      state.user = null,
-      state.tokens = null
+      state.user = null
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
