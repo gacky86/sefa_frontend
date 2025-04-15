@@ -17,7 +17,7 @@ const FlashCardCard = ({flashcard}:{flashcard:FlashCard}) => {
           {flashcard.shared && (<FaLock className="w-[11px]"/>)}
           <p className="text-h3">{flashcard.title}</p>
         </div>
-        <div className="col-span-5 col-start-6 ml-[3px] ">習熟度</div>
+        <div className="col-span-5 col-start-6 ml-[3px] text-left">習熟度</div>
         <div className="col-span-2 col-start-6 row-start-2 ml-[6px] leading-none text-start">Input</div>
         <div className="col-span-3 col-start-8 row-start-2 flex items-center">
           <div className="w-[100%] bg-white border-[0.5px] rounded-full h-[10px] text-center">

@@ -7,14 +7,11 @@ import Home from "./components/pages/Home";
 import CommonLayout from "./components/layouts/CommonLayout";
 
 import { getCurrentUser } from "./lib/api/auth";
-// import { User } from "./interfaces/index";
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser, setLoading } from 'store/authSlice';
 import { RootState } from 'store/index';
-
-
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,13 +19,20 @@ const App: React.FC = () => {
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
+    console.log('1 handleGetCurrentUser');
     dispatch(setLoading(true));
     try {
+
       const res = await getCurrentUser()
+      console.log(res);
       if (res?.data.isLogin === true) {
         dispatch(setUser(res?.data.data));
+        console.log('setUser');
+
       } else {
         dispatch(clearUser());
+        console.log('clearUser');
+
       }
     } catch (err) {
       dispatch(clearUser());
@@ -36,8 +40,10 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log('useEffect');
+
     handleGetCurrentUser()
-  }, [dispatch])
+  }, [])
 
 
   // ユーザーが認証済みかどうかでルーティングを決定
@@ -47,10 +53,18 @@ const App: React.FC = () => {
   const { isSignedIn, isLoading } = useSelector((state: RootState) => state.auth);
 
   const Private = () => {
+    console.log('Private');
+
+    console.log(`isLoading: ${isLoading}`);
+    console.log(`isSignedIn: ${isSignedIn}`);
+
     if (!isLoading) {
       if (isSignedIn) {
+        console.log('上');
+
         return <Outlet/>
       } else {
+        console.log('下');
         return <Navigate to="/signin" />
       }
     } else {
@@ -61,15 +75,15 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className='bg-super-light-sky-blue h-screen'>
-          <CommonLayout>
-            <Routes>
-              <Route path='/signup' element={<SignUp/>}/>
-              <Route path='/signin' element={<SignIn/>}/>
-              <Route element={<Private/>}>
-                <Route path='/' element={<Home/>}/>
-              </Route>
-            </Routes>
-          </CommonLayout>
+        <CommonLayout>
+          <Routes>
+            <Route path='/signup' element={<SignUp/>}/>
+            <Route path='/signin' element={<SignIn/>}/>
+            <Route element={<Private/>}>
+              <Route path='/' element={<Home/>}/>
+            </Route>
+          </Routes>
+        </CommonLayout>
       </div>
     </Router>
   )
