@@ -24,7 +24,8 @@
     "baseUrl": "src",
     "paths": {
       "/*": ["src/*"]
-    }
+    },
+    "types": ["node", "vitest", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }

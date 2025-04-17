@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   test: {
@@ -10,4 +11,5 @@ export default defineConfig({
       reportsDirectory: './coverage'
     },
   },
+  plugins: [tsconfigPaths()],
 })
