@@ -14,6 +14,8 @@ const FlashcardsList = () => {
     getFlashcardList()
     .then((res: AxiosResponse<FlashCard[]>) => {
       setFlashcards(res.data);
+      console.log(res);
+
     })
     .catch((e: AxiosError) => {
       console.log(e);
@@ -26,14 +28,14 @@ const FlashcardsList = () => {
 
 
   return (
-    <>
+    <div data-testid="flashcards-list">
       {flashcards.map((flashcard, key) => {
         return (
           <FlashCardCard key={key} flashcard={flashcard}/>
         )
       })}
 
-    </>
+    </div>
   )
 }
 

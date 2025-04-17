@@ -26,7 +26,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   }
 
   return (
-    <div>
+    <div data-testid="flashcard-edit-modal">
       <div className="p-4 text-center">
         <p className="text-xl">編集</p>
         <div className="mx-auto w-[80%] border-b-1 pb-2">

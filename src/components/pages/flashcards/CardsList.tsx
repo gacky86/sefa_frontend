@@ -31,7 +31,7 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
   }, []);
 
   return (
-    <div>
+    <div data-testid="cards-list-modal">
       <div className="p-4 text-center">
         <p className="text-xl">{flashcard.title}</p>
       </div>

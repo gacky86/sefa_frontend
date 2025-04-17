@@ -9,7 +9,7 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="p-4">
+    <div className="p-4" data-testid="flashcard-detail">
       {flashcard.shared && (<FaLock className="w-[16px]"/>)}
       <p className="text-xl text-center">{flashcard.title}</p>
       <p className="text-sm text-center">{flashcard.description}</p>
@@ -52,8 +52,10 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
         </div>
         <div className="border-t-1 mt-1 py-4 text-center">
           <button className="text-base bg-gray-200 px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue"
+                  data-testid="flashcard-edit-btn"
                   onClick={() => dispatch(openModal({modalType: 'flashcardSetting', modalProps: flashcard}))}>単語帳設定</button>
           <button className="text-base bg-gray-200 px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue"
+                  data-testid="card-add-edit-btn"
                   onClick={() => dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}))}>単語を追加/編集</button>
         </div>
       </div>

@@ -17,7 +17,7 @@ const Home = () => {
         <button className="text-center border-b-2 border-slate-300">ブックマーク</button>
         <button className="text-center border-b-2 border-slate-300">探す</button>
       </div>
-      <button className="fixed bottom-[20px] right-[20px] text-auqa-blue text-5xl"
+      <button className="fixed bottom-[20px] right-[20px] text-auqa-blue text-5xl" data-testid="new-flashcard-btn"
               onClick={() => dispatch(openModal({modalType: 'newFlashcard'}))}><IoIosAddCircle/></button>
       <div className="mx-[30px] mt-[5px]">
         <FlashCardsList />
