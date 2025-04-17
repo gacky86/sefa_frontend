@@ -35,7 +35,7 @@ const NewFlashCard = () => {
   }
 
   return (
-    <div>
+    <div data-testid="new-flashcard-modal">
       <div className="p-4 text-center">
         <p className="text-xl">単語帳を新規作成</p>
         <div className="mx-auto w-[80%] border-b-1 pb-2">
