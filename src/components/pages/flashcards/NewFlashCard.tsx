@@ -46,7 +46,9 @@ const NewFlashCard = () => {
             className="w-[100%] border-1 rounded-sm"
             onChange={(e) => setFlashcardParams({...flashcardParams, description: e.target.value})}></textarea>
         </div>
-        <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-8" onClick={() => handleCreateFlashCard()}>新規作成</button>
+        <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-8"
+                onClick={() => handleCreateFlashCard()}
+                data-testid="new-flashcard-submit-btn">新規作成</button>
       </div>
     </div>
   )

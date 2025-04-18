@@ -9,7 +9,6 @@ import modalReducer from "store/modalSlice";
 import { User } from "interfaces/index";
 
 // Components
-import FlashCardDetailModal from 'components/pages/flashcards/FlashCardDetailModal';
 import Modal from 'components/layouts/Modal';
 
 // Redux 初期state用
@@ -22,6 +21,9 @@ const mockUser: User = {
   allowPasswordChange: false
 }
 
+const mockFlashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
+
+// Redux store内のstateの初期設定
 const renderWithProviders = (ui: React.ReactElement) => {
   const store = configureStore({
     reducer: {
@@ -35,9 +37,9 @@ const renderWithProviders = (ui: React.ReactElement) => {
         isLoading: false
       },
       modal: {
-        isVisible: false,
-        modalType: null,
-        modalProps: null,
+        isVisible: true,
+        modalType: 'flashcard' as const,
+        modalProps: mockFlashcard,
       },
     },
   });
@@ -46,11 +48,11 @@ const renderWithProviders = (ui: React.ReactElement) => {
   return render(<Provider store={store}>{ui}<Modal/></Provider>);
 };
 
+// テスト
 describe('トップページ-単語帳CRUD-カードCRUD基本機能: Flashcardの詳細表示', () => {
-  const mockFlashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
 
   beforeEach(() => {
-    renderWithProviders(<FlashCardDetailModal flashcard={mockFlashcard}/>);
+    renderWithProviders(<></>);
   });
 
   test('表示内容確認', () => {
