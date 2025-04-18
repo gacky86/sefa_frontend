@@ -10,10 +10,15 @@ import modalReducer from "store/modalSlice";
 import { User } from "interfaces/index";
 
 // Components
-import Home from 'components/pages/Home';
+import Modal from 'components/layouts/Modal';
 
 // API
-import { getFlashcardList } from "lib/api/flashcard";
+import { createCard } from "lib/api/card";
+
+// API関数をmock化
+vi.mock('lib/api/card', () => ({
+  createCard: vi.fn(),
+}));
 
 // Redux 初期state用
 const mockUser: User = {
@@ -24,6 +29,8 @@ const mockUser: User = {
   name: 'testUser',
   allowPasswordChange: false
 }
+
+const mockFlashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
 
 const renderWithProviders = (ui: React.ReactElement) => {
   const store = configureStore({
@@ -38,14 +45,14 @@ const renderWithProviders = (ui: React.ReactElement) => {
         isLoading: false
       },
       modal: {
-        isVisible: false,
-        modalType: null,
-        modalProps: null,
+        isVisible: true,
+        modalType: 'newCard' as const,
+        modalProps: mockFlashcard,
       },
     },
   });
 
-  return render(<Provider store={store}>{ui}</Provider>);
+  return render(<Provider store={store}>{ui}<Modal/></Provider>);
 };
 
 
@@ -55,6 +62,12 @@ const renderWithProviders = (ui: React.ReactElement) => {
 // - English入力フォーム(Placeholderとして”English word or phrase that correspond to the Japanese”)
 // - 追加ボタン
 describe('トップページ-単語帳CRUD-カードCRUD基本機能: カードの新規作成', () => {
+  beforeEach(() => {
+    // createCardをmock化
+    ( createCard as ReturnType<typeof vi.fn>).mockResolvedValue(undefined);
+
+    renderWithProviders(<></>);
+  });
   test('tentative', () => {
 
   });

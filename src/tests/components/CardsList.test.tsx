@@ -10,10 +10,15 @@ import modalReducer from "store/modalSlice";
 import { User } from "interfaces/index";
 
 // Components
-import Home from 'components/pages/Home';
+import Modal from 'components/layouts/Modal';
 
-// API
-import { getFlashcardList } from "lib/api/flashcard";
+// // API
+// import { updateFlashcard } from "lib/api/flashcard";
+
+// // API関数をmock化
+// vi.mock('lib/api/flashcard', () => ({
+//   updateFlashcard: vi.fn(),
+// }));
 
 // Redux 初期state用
 const mockUser: User = {
@@ -24,6 +29,8 @@ const mockUser: User = {
   name: 'testUser',
   allowPasswordChange: false
 }
+
+const mockFlashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
 
 const renderWithProviders = (ui: React.ReactElement) => {
   const store = configureStore({
@@ -38,16 +45,15 @@ const renderWithProviders = (ui: React.ReactElement) => {
         isLoading: false
       },
       modal: {
-        isVisible: false,
-        modalType: null,
-        modalProps: null,
+        isVisible: true,
+        modalType: 'cardsList' as const,
+        modalProps: mockFlashcard,
       },
     },
   });
 
-  return render(<Provider store={store}>{ui}</Provider>);
+  return render(<Provider store={store}>{ui}<Modal/></Provider>);
 };
-
 
 // ## 単語帳内単語一覧モーダル ##
 // 以下の内容を表示していること
