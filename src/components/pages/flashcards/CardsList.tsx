@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlashCard, Card } from "../../../interfaces/index";
+import { FlashCard, Card } from "interfaces/index";
 import { getCardList } from "lib/api/card";
 
 import { IoIosAddCircle } from "react-icons/io";
@@ -47,7 +47,9 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
           <tbody>
             {cards.map((card, key) => {
               return(
-                <tr key={key} onClick={() => dispatch(openModal({modalType: 'cardEdit', modalProps: {flashcard: flashcard, card: card}}))}>
+                <tr key={key}
+                    onClick={() => dispatch(openModal({modalType: 'cardEdit', modalProps: {flashcard: flashcard, card: card}}))}
+                    data-testid={`card-${card.id}`}>
                   <td className="flex"><MdModeEdit/>{card.japanese}</td>
                   <td>{card.english}</td>
                 </tr>
@@ -58,7 +60,8 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
       </div>
       <div className="text-right">
         <button className="text-auqa-blue text-5xl"
-                onClick={() => dispatch(openModal({modalType: 'newCard', modalProps: flashcard}))}><IoIosAddCircle/></button>
+                onClick={() => dispatch(openModal({modalType: 'newCard', modalProps: flashcard}))}
+                data-testid="new-card-modal-btn"><IoIosAddCircle/></button>
       </div>
     </div>
   )
