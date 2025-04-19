@@ -53,18 +53,10 @@ const App: React.FC = () => {
   const { isSignedIn, isLoading } = useSelector((state: RootState) => state.auth);
 
   const Private = () => {
-    console.log('Private');
-
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`isSignedIn: ${isSignedIn}`);
-
     if (!isLoading) {
       if (isSignedIn) {
-        console.log('上');
-
         return <Outlet/>
       } else {
-        console.log('下');
         return <Navigate to="/signin" />
       }
     } else {
