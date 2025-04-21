@@ -27,6 +27,16 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
     })
   }
 
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: keyof Pick<FlashCard, "title"|"description">,
+    maxLength: number
+  ) => {
+    if(e.target.value.length <= maxLength) {
+      setFlashcardParams({...flashcardParams, [key]: e.target.value});
+    }
+  }
+
   return (
     <div data-testid="flashcard-edit-modal">
       <ModalCloseBtn onClose={{modalType: 'flashcard', modalProps: flashcard}}/>
@@ -35,11 +45,11 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
         <div className="mx-auto w-[80%] border-b-1 pb-2">
           <input type="text" id="title" value={flashcardParams.title} placeholder="単語帳のタイトル"
           className="w-[100%] border-1 rounded-sm px-1 mt-3 mb-2 "
-          onChange={(e) => setFlashcardParams({...flashcardParams, title: e.target.value})}
+          onChange={(e) => handleInputChange(e, 'title', 60)}
           data-testid="flashcard-title-form"/>
           <textarea id="description" value={flashcardParams.description} placeholder="単語帳の説明"
           className="w-[100%] border-1 rounded-sm"
-          onChange={(e) => setFlashcardParams({...flashcardParams, description: e.target.value})}
+          onChange={(e) => handleInputChange(e, 'description', 120)}
           data-testid="flashcard-description-form"></textarea>
         </div>
         <div className="mx-auto w-[80%] border-b-1 py-3 grid grid-cols-2 grid-rows-1 content-between ">
@@ -63,7 +73,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
           <div className="grid grid-cols-2 grid-rows-2 gap-2">
               <div className="-leading-1 text-start">Input</div>
               <div>
-                <input type="number" id="input-target" value={flashcardParams.inputTarget}
+                <input type="number" id="input-target" value={flashcardParams.inputTarget} max="100"
                 className="border-1 rounded-sm px-1 w-[75%] mr-1"
                 onChange={(e) => setFlashcardParams({...flashcardParams, inputTarget: Number(e.target.value)})}
                 data-testid="flashcard-input-target-form"/>
