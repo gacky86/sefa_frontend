@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createFlashcard } from "lib/api/flashcard";
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 // Redux
 import { FlashCard } from "interfaces/index";
@@ -36,6 +37,7 @@ const NewFlashCard = () => {
 
   return (
     <div data-testid="new-flashcard-modal">
+      <ModalCloseBtn/>
       <div className="p-4 text-center">
         <p className="text-xl">単語帳を新規作成</p>
         <div className="mx-auto w-[80%] border-b-1 pb-2">

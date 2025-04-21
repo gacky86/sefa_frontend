@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FlashCard, Card } from "interfaces/index";
-
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 import { updateCard } from "lib/api/card";
 
 import { AxiosError } from "axios";
@@ -20,6 +20,7 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
 
   return (
     <div className="p-2 text-center" data-testid={`edit-card-${card.id}`}>
+      <ModalCloseBtn onClose={{modalType: 'cardsList', modalProps: flashcard}}/>
       <p className="text-xl text-center">{flashcard.title}</p>
       <div className="mx-auto">
         <textarea id="japanese" value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
