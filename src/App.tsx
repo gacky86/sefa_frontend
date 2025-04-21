@@ -4,6 +4,11 @@ import { useEffect } from 'react';
 import SignUp from "components/pages/SignUp";
 import SignIn from "components/pages/SignIn";
 import Home from "components/pages/Home";
+import Setting from "components/pages/Setting";
+import Account from "components/pages/Account";
+import YTLearning from "components/pages/YTLearning";
+import AIDictionary from "components/pages/AIDictionary";
+
 import CommonLayout from "components/layouts/CommonLayout";
 import TermsOfService from "components/pages/others/TermsOfService";
 import PrivacyPolicy from "components/pages/others/PrivacyPolicy";
@@ -78,6 +83,10 @@ const App: React.FC = () => {
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
             <Route element={<Private/>}>
               <Route path='/' element={<Home/>}/>
+              <Route path='/setting' element={<Setting/>}/>
+              <Route path='/account' element={<Account/>}/>
+              <Route path='/yt-learning' element={<YTLearning/>}/>
+              <Route path='/ai-dicrionary' element={<AIDictionary/>}/>
             </Route>
           </Routes>
         </CommonLayout>
