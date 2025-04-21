@@ -9,6 +9,8 @@ import { updateFlashcard } from "lib/api/flashcard";
 
 import { AxiosError } from "axios";
 
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+
 
 const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   const [flashcardParams, setFlashcardParams] = useState<FlashCard>(flashcard);
@@ -27,6 +29,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
 
   return (
     <div data-testid="flashcard-edit-modal">
+      <ModalCloseBtn onClose={{modalType: 'flashcard', modalProps: flashcard}}/>
       <div className="p-4 text-center">
         <p className="text-xl">編集</p>
         <div className="mx-auto w-[80%] border-b-1 pb-2">

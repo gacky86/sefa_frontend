@@ -1,5 +1,6 @@
 import { FlashCard } from "interfaces/index";
 import { deleteFlashcard } from "lib/api/flashcard";
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 import { AxiosError } from "axios";
 
@@ -18,6 +19,7 @@ const FlashCardDeleteModal = ({flashcard}:{flashcard:FlashCard}) => {
 
   return (
     <div className="p-2" data-testid="delete-flashcard-modal">
+      <ModalCloseBtn onClose={{modalType: 'flashcardSetting', modalProps: flashcard}}/>
       <p className="text-xl text-center">単語帳の削除</p>
       <div className="my-2">
         <p>単語帳<span className="text-auqa-blue">{flashcard.title}</span>を削除しますか？</p>

@@ -5,11 +5,14 @@ import { openModal } from "store/modalSlice";
 
 import { FlashCard } from "interfaces/index";
 
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+
 const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
 
   return (
     <div className="p-4" data-testid="flashcard-detail">
+      <ModalCloseBtn/>
       {flashcard.shared && (<FaLock className="w-[16px]"/>)}
       <p className="text-xl text-center">{flashcard.title}</p>
       <p className="text-sm text-center">{flashcard.description}</p>

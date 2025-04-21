@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlashCard, Card } from "interfaces/index";
 import { getCardList } from "lib/api/card";
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 import { IoIosAddCircle } from "react-icons/io";
 import { MdModeEdit } from "react-icons/md";
@@ -32,6 +33,7 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
 
   return (
     <div data-testid="cards-list-modal">
+      <ModalCloseBtn onClose={{modalType: 'flashcard', modalProps: flashcard}}/>
       <div className="p-4 text-center">
         <p className="text-xl">{flashcard.title}</p>
       </div>

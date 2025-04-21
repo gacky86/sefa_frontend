@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type ModalPayload = {
+export type ModalPayload = {
   modalType: 'flashcard' | 'newFlashcard' | 'flashcardSetting' | 'cardsList' | 'cardEdit' | 'newCard' | 'flashcardDelete',
   modalProps?: any
 }
