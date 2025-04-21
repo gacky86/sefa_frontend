@@ -35,6 +35,16 @@ const NewFlashCard = () => {
     })
   }
 
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: keyof Pick<FlashCard, "title"|"description">,
+    maxLength: number
+  ) => {
+    if(e.target.value.length <= maxLength) {
+      setFlashcardParams({...flashcardParams, [key]: e.target.value});
+    }
+  }
+
   return (
     <div data-testid="new-flashcard-modal">
       <ModalCloseBtn/>
@@ -43,10 +53,10 @@ const NewFlashCard = () => {
         <div className="mx-auto w-[80%] border-b-1 pb-2">
           <input type="text" id="title" value={flashcardParams.title} placeholder="単語帳のタイトル"
             className="w-[100%] border-1 rounded-sm px-1 mt-3 mb-2 "
-            onChange={(e) => setFlashcardParams({...flashcardParams, title: e.target.value})}/>
+            onChange={(e) => handleInputChange(e, 'title', 60)}/>
           <textarea id="description" value={flashcardParams.description} placeholder="単語帳の説明"
             className="w-[100%] border-1 rounded-sm"
-            onChange={(e) => setFlashcardParams({...flashcardParams, description: e.target.value})}></textarea>
+            onChange={(e) => handleInputChange(e, 'description', 120)}></textarea>
         </div>
         <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-8"
                 onClick={() => handleCreateFlashCard()}
