@@ -73,17 +73,19 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: カード�
 
   });
 
-  test('表示内容の確認', () => {
+  test('表示内容の確認', async () => {
     // 見出し、テーブルヘッダ、テーブルレコード、カード追加ボタン
     expect(screen.getByText(mockFlashcard.title)).toBeInTheDocument;
     expect(screen.getByText("Japanese")).toBeInTheDocument;
     expect(screen.getByText("English")).toBeInTheDocument;
     expect(screen.getByText(mockFlashcard.title)).toBeInTheDocument;
 
-    mockCards.map((card) => {
-      expect(screen.getByTestId(`card-${card.id}`)).toBeInTheDocument;
-      expect(screen.getByText(card.japanese)).toBeInTheDocument;
-      expect(screen.getByText(card.english)).toBeInTheDocument;
+    await waitFor(() => {
+      mockCards.map((card) => {
+        expect(screen.getByTestId(`card-${card.id}`)).toBeInTheDocument();
+        expect(screen.getByText(card.japanese)).toBeInTheDocument;
+        expect(screen.getByText(card.english)).toBeInTheDocument;
+      });
     });
 
     expect(screen.getByTestId("new-card-modal-btn")).toBeInTheDocument;
@@ -91,26 +93,23 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: カード�
   });
 
 
-  test('カード編集モーダルを開いたのち、閉じる', async () => {
+  test('カード編集モーダルを開いたのち、閉じる', () => {
     // クリックしたカードに対応するカード編集モーダルが開くこと
-    mockCards.map((card) => {
-      const cardBtn = screen.getByTestId(`card-${card.id}`);
-      fireEvent.click(cardBtn);
+    waitFor(() => {
+      mockCards.map((card) => {
+        const cardBtn = screen.getByTestId(`card-${card.id}`);
+        fireEvent.click(cardBtn);
 
-      waitFor(() => {
         expect(screen.getByTestId('modal')).toBeInTheDocument;
         expect(screen.getByTestId(`edit-card-${card.id}`)).toBeInTheDocument;
-      });
 
-      const modalCloseBtn = screen.getByTestId('close-modal-btn');
-      fireEvent.click(modalCloseBtn);
+        const modalCloseBtn = screen.getByTestId('close-modal-btn');
+        fireEvent.click(modalCloseBtn);
 
-      waitFor(() => {
         expect(screen.getByTestId('modal')).toBeInTheDocument;
         expect(screen.getByTestId('cards-list-modal')).toBeInTheDocument;
         expect(screen.getByTestId(`edit-card-${card.id}`)).not.toBeInTheDocument;
       });
-
     });
   });
 

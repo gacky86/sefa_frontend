@@ -16,6 +16,7 @@ import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   const [flashcardParams, setFlashcardParams] = useState<FlashCard>(flashcard);
+  const [ btnDisabled, setBtnDisabled ] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,12 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   ) => {
     if(e.target.value.length <= maxLength) {
       setFlashcardParams({...flashcardParams, [key]: e.target.value});
+    }
+    // titleの長さが0だとボタンをクリックできないようにする
+    if(key === "title" && e.target.value.length !== 0) {
+      setBtnDisabled(false);
+    } else if (key === "title" && e.target.value.length === 0) {
+      setBtnDisabled(true);
     }
   }
 
@@ -77,7 +84,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
           <div className="grid grid-cols-2 grid-rows-2 gap-2">
               <div className="-leading-1 text-start">Input</div>
               <div>
-                <input type="number" id="input-target" value={flashcardParams.inputTarget} max="100"
+                <input type="number" id="input-target" value={flashcardParams.inputTarget} max="999" min="10"
                 className="border-1 rounded-sm px-1 w-[75%] mr-1"
                 onChange={(e) => setFlashcardParams({...flashcardParams, inputTarget: Number(e.target.value)})}
                 data-testid="flashcard-input-target-form"/>
@@ -85,7 +92,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
               </div>
               <div className="-leading-1 text-start">Output</div>
               <div>
-                <input type="number" id="output-target" value={flashcardParams.outputTarget}
+                <input type="number" id="output-target" value={flashcardParams.outputTarget} max="999" min="10"
                 className="border-1 rounded-sm px-1 w-[75%] mr-1"
                 onChange={(e) => setFlashcardParams({...flashcardParams, outputTarget: Number(e.target.value)})}
                 data-testid="flashcard-output-target-form"/>
@@ -98,8 +105,9 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
                   onClick={() => dispatch(openModal({modalType:'flashcardDelete', modalProps: flashcard}))}
                   data-testid="delete-flashcard-modal-btn"><FaRegTrashAlt /></button>
         </div>
-        <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue"
+        <button className={`text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue ${btnDisabled ? 'opacity-50': 'opacity-100'}`}
                 onClick={() => handleUpdateFlashCard()}
+                disabled={btnDisabled}
                 data-testid="update-flashcard-submit-btn">更新</button>
       </div>
     </div>
