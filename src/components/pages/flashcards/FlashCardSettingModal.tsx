@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FlashCard } from "../../../interfaces/index";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { closeModal } from "store/modalSlice";
+import { editFlashcard } from "store/flashcardsSlice";
 
 import { openModal } from "store/modalSlice";
 
@@ -19,8 +21,10 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
 
   const handleUpdateFlashCard = () => {
     updateFlashcard(flashcard.id, flashcardParams)
-    .then(() => {
-      console.log('updated');
+    .then((res) => {
+      console.log(res);
+      dispatch(closeModal());
+      dispatch(editFlashcard(res.data));
     })
     .catch((e: AxiosError) => {
       console.log(e);

@@ -4,13 +4,20 @@ import Modal from "components/layouts/Modal";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
 
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Home = () => {
   const dispatch = useDispatch();
+  const notify = () => toast("Wow so easy!");
 
   return (
     //
     <div className="mx-auto font-sans text-dark-navy-blue">
+      <div>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer />
+      </div>
       <h1 className="text-h1 text-center mt-[30px] mb-[16px]">単語帳</h1>
       <div className="mx-[30px] text-h3 grid grid-cols-3 gap-3">
         <button className="text-center border-b-2 border-auqa-blue text-auqa-blue">My単語帳</button>

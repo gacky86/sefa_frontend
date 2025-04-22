@@ -4,12 +4,22 @@ import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 import { AxiosError } from "axios";
 
+import { useDispatch } from 'react-redux';
+import { closeModal } from "store/modalSlice";
+import { removeFlashcard } from "store/flashcardsSlice";
+
+
 
 const FlashCardDeleteModal = ({flashcard}:{flashcard:FlashCard}) => {
+  const dispatch = useDispatch();
+
   const handleDeleteFlashcard = () => {
     deleteFlashcard(flashcard.id)
     .then(() => {
       console.log('successfully deleted');
+      dispatch(closeModal());
+      // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
+      dispatch(removeFlashcard(flashcard));
     })
     .catch((e: AxiosError) => {
       console.log(e);

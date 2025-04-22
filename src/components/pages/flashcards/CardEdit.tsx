@@ -1,17 +1,38 @@
 import { useState } from "react";
 import { FlashCard, Card } from "interfaces/index";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
-import { updateCard } from "lib/api/card";
+import { updateCard, deleteCard } from "lib/api/card";
+
+import { FaRegTrashAlt } from "react-icons/fa";
+
 
 import { AxiosError } from "axios";
 
+import { openModal } from "store/modalSlice";
+
+import { useDispatch } from "react-redux";
+
 const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
+  const dispatch = useDispatch();
+
   const [cardParams, setCardParams] = useState<Card>(card);
 
   const handleUpdateCard = () => {
     updateCard(card.id, cardParams)
     .then(() => {
       console.log('updated');
+      dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));
+    })
+    .catch((e: AxiosError) => {
+      console.log(e);
+    })
+  }
+
+  const handleDeleteCard = () => {
+    deleteCard(card.id)
+    .then(() => {
+      console.log('successfully deleted');
+      dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));
     })
     .catch((e: AxiosError) => {
       console.log(e);
@@ -41,6 +62,11 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
                   className="w-[100%] h-28 border-1 rounded-sm p-1"
                   onChange={(e) => handleInputChange(e, "english", 255)}
                   data-testid="edit-card-en-form"/>
+      </div>
+      <div className="text-right mx-auto pt-2 pb-5">
+        <button className="text-xl"
+                onClick={() => handleDeleteCard()}
+                data-testid="delete-flashcard-modal-btn"><FaRegTrashAlt /></button>
       </div>
       <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-5" onClick={() => handleUpdateCard()}>更新</button>
     </div>
