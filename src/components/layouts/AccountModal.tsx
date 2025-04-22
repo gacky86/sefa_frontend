@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { clearUser } from 'store/authSlice';
+import { closeModal } from 'store/modalSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -8,6 +9,7 @@ const AccountModal = ({setHideModal}: {setHideModal: React.Dispatch<React.SetSta
 
   const handleLogout = () => {
     setHideModal(true);
+    dispatch(closeModal());
     dispatch(clearUser());
   }
   return (
