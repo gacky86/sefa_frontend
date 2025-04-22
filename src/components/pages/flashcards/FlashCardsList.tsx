@@ -16,7 +16,7 @@ const FlashcardsList = () => {
 
 
   return (
-    <div data-testid="flashcards-list" className="mx-auto h-[40vh] w-[90%] overflow-scroll">
+    <div data-testid="flashcards-list" className="mx-auto h-[40vh] w-[90%] overflow-scroll border-1 border-gray-300 rounded-sm">
       {flashcards.map((flashcard, key) => {
         return (
           <FlashCardCard key={key} flashcard={flashcard}/>
