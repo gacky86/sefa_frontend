@@ -4,11 +4,14 @@ import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 // Redux
 import { FlashCard } from "interfaces/index";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/index';
+import { closeModal } from "store/modalSlice";
+import { addFlashcard } from "store/flashcardsSlice";
 
 const NewFlashCard = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
   // initialFlashcard
   if (!user) return null;
@@ -27,8 +30,10 @@ const NewFlashCard = () => {
 
   const handleCreateFlashCard = () => {
     createFlashcard(flashcardParams)
-    .then(() => {
-      console.log("successfully created");
+    .then((res) => {
+      dispatch(closeModal());
+      // fetchFlashcards(非同期処理)をせずに、先にUIだけ更新できる(楽観的UI)
+      dispatch(addFlashcard(res.data));
     })
     .catch((e) => {
       console.log(e);

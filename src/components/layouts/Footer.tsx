@@ -1,5 +1,5 @@
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from 'store/index';
 
 // react-router-dom

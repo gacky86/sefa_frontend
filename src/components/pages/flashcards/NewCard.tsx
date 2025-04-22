@@ -22,7 +22,7 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
     createCard(cardParams)
     .then(() => {
       console.log('successfully created a new card');
-
+      setCardParams(initialCardParams);
     })
     .catch((e: AxiosError) => {
       console.log(e);
