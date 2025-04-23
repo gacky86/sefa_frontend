@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 // components
 import SignUp from "components/pages/SignUp";
 import SignIn from "components/pages/SignIn";
+import Introduction from "components/pages/Introduction";
 import Home from "components/pages/Home";
 import Setting from "components/pages/Setting";
 import Account from "components/pages/Account";
@@ -79,6 +80,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/signin' element={<SignIn/>}/>
+            <Route path='/introduction' element={<Introduction/>}/>
             <Route path='/terms-of-service' element={<TermsOfService/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
             <Route element={<Private/>}>

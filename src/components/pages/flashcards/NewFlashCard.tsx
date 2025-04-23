@@ -13,6 +13,8 @@ const NewFlashCard = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
+  const [ btnDisabled, setBtnDisabled ] = useState<boolean>(true);
+
   // initialFlashcard
   if (!user) return null;
 
@@ -48,6 +50,12 @@ const NewFlashCard = () => {
     if(e.target.value.length <= maxLength) {
       setFlashcardParams({...flashcardParams, [key]: e.target.value});
     }
+    // titleの長さが0だとボタンをクリックできないようにする
+    if(key === "title" && e.target.value.length !== 0) {
+      setBtnDisabled(false);
+    } else if (key === "title" && e.target.value.length === 0) {
+      setBtnDisabled(true);
+    }
   }
 
   return (
@@ -58,13 +66,16 @@ const NewFlashCard = () => {
         <div className="mx-auto w-[80%] border-b-1 pb-2">
           <input type="text" id="title" value={flashcardParams.title} placeholder="単語帳のタイトル"
             className="w-[100%] border-1 rounded-sm px-1 mt-3 mb-2 "
-            onChange={(e) => handleInputChange(e, 'title', 60)}/>
+            onChange={(e) => handleInputChange(e, 'title', 60)}
+            data-testid='flashcard-title-form'/>
           <textarea id="description" value={flashcardParams.description} placeholder="単語帳の説明"
             className="w-[100%] border-1 rounded-sm"
-            onChange={(e) => handleInputChange(e, 'description', 120)}></textarea>
+            onChange={(e) => handleInputChange(e, 'description', 120)}
+            data-testid='flashcard-description-form'></textarea>
         </div>
-        <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-8"
+        <button className={`text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-8 ${btnDisabled ? 'opacity-50': 'opacity-100'}`}
                 onClick={() => handleCreateFlashCard()}
+                disabled={btnDisabled}
                 data-testid="new-flashcard-submit-btn">新規作成</button>
       </div>
     </div>

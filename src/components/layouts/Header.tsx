@@ -10,7 +10,7 @@ const Header = () => {
   const { isSignedIn } = useSelector((state: RootState) => state.auth);
 
   return (
-    <div className="h-[50px] bg-white border-b-1 border-gray-300 flex justify-between w-screen">
+    <div className="h-[50px] bg-white border-b-1 border-gray-300 flex justify-between w-screen fixed top-0">
       <div>
         <Link to="/">
           <Logo className="w-[50px] h-[50px]"/>
@@ -25,7 +25,7 @@ const Header = () => {
           <Link to='/signin' className="text-auqa-blue p-3">
             ログイン
           </Link>
-          <Link to='/singup' className="bg-auqa-blue text-white px-2 py-1 rounded-[5px] border-1 border-dark-navy-blue">
+          <Link to='/signup' className="bg-auqa-blue text-white px-2 py-1 rounded-[5px] border-1 border-dark-navy-blue">
             新規登録
           </Link>
         </div>

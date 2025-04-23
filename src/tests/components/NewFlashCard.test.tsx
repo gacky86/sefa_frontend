@@ -74,7 +74,7 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: Flashcard�
   test('タイトルフォーム入力', () => {
     // 入力がフォーム内に反映される
     // - 入力フォームの要素を取得する
-    const titleInput = screen.getAllByRole('textbox')[0];
+    const titleInput = screen.getByTestId('flashcard-title-form');
 
     // - 取得した入力フォームにユーザーイベントで値を入れる
     fireEvent.change(titleInput, { target: { value: '英会話フレーズ集' } });

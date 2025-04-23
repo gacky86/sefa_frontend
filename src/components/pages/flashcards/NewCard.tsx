@@ -44,10 +44,12 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
       <ModalCloseBtn onClose={{modalType: 'cardsList', modalProps: flashcard}}/>
       <p className="text-xl text-center">{flashcard.title}</p>
       <div className="mx-auto">
+        <h3>Japanese</h3>
         <textarea id="japanese" value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
                   className="w-[100%] h-28 border-1 rounded-sm my-3 p-1"
                   onChange={(e) => handleInputChange(e, "japanese", 255)}
                   data-testid="new-card-ja-form"/>
+        <h3>English</h3>
         <textarea id="english" value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
                   className="w-[100%] h-28 border-1 rounded-sm p-1"
                   onChange={(e) => handleInputChange(e, "english", 255)}
