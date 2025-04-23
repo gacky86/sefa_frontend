@@ -7,7 +7,7 @@ const CommonLayout = ({ children }: {children: React.ReactNode}) => {
       <header>
         <Header/>
       </header>
-      <main>
+      <main className="pt-[50px]">
         {children}
       </main>
       <footer>

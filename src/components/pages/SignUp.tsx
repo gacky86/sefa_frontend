@@ -1,61 +1,81 @@
 import { useState } from 'react';
-// import Cookies from "js-cookie"
+import Cookies from "js-cookie"
+import { Link } from "react-router-dom";
 
-import { signUp } from "lib/api/auth";
-import { SignUpParams } from "interfaces/index";
+import { signIn } from "lib/api/auth";
+import { SignInParams } from "interfaces/index";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser, setLoading } from "store/authSlice";
+
+// icons
+import { FcGoogle } from "react-icons/fc";
 
 
 const SignUp: React.FC = () => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    const params: SignUpParams = {
-      name: name,
+    e.preventDefault();
+    const params: SignInParams = {
       email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation
+      password: password
     }
 
     try {
-      const res = await signUp(params)
-      console.log(res)
-
+      const res = await signIn(params)
+      dispatch(setLoading(true));
       if (res.status === 200) {
-        // アカウント作成に成功した場合はログイン画面にリダイレクト
+        // ログインに成功した場合はCookieに各値を格納
+        Cookies.set("_access_token", res.headers["access-token"])
+        Cookies.set("_client", res.headers["client"])
+        Cookies.set("_uid", res.headers["uid"])
+
+        // ログイン成功時のresponseのヘッダー情報をReduxに保存
+        const data = res.data;
+
+        // isAuthenticated, isLoadingはreducerで自動的にtrueに設定される
+        dispatch(setUser({
+          user : data.data,
+        }));
+
+        // ルートディレクトリにリダイレクト
         navigate("/")
-
-        console.log("Create an account successfully!")
-      } else {
-        console.log("Account creation error");
-
       }
     } catch (err) {
       console.log(err)
+      // loading解除
+      dispatch(setLoading(false));
     }
   }
 
   return (
-    <div>
-      <form action="">
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" value={name} onChange={(e) => {setName(e.target.value)}}/>
-        <label htmlFor="email">E-mail</label>
-        <input type="text" id="email" name="email" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-        <label htmlFor="password">Password</label>
-        <input type="text" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
-        <label htmlFor="password_confirmation">Password Confirmation</label>
-        <input type="text" id="password_confirmation" name="password_confirmation" value={passwordConfirmation} onChange={(e) => {setPasswordConfirmation(e.target.value)}}/>
-        <button onClick={handleSubmit}>Sign Up</button>
-      </form>
+    <div className='mx-auto text-center w-[300px] text-dark-navy-blue'>
+      <h1 className='text-2xl mt-8'>新規登録</h1>
+      <div className='mt-12'>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5 mb-2" placeholder="ユーザー名" type="text" id="name" name="name" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5 mb-2" placeholder="メールアドレス" type="text" id="email" name="email" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5" placeholder="パスワード" type="text" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+        <p className='text-left text-xs pl-4 font-light'>※英数字を含めた、8文字以上で入力してください</p>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5 mt-2" placeholder="パスワード(確認用)" type="text" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+      </div>
+      <button className='text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue my-5' onClick={handleSubmit}>登録</button>
+
+      <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
+      <div className='mt-16 mb-20'>
+        <button className='mx-auto p-2 flex bg-white border-1 border-dark-navy-blue rounded-full text-sm text-gray-800'>
+          <FcGoogle className='text-2xl'/><p className='pt-0.5 pl-0.5'>Googleアカウントで登録</p>
+        </button>
+      </div>
+      <div className='text-base font-medium'>
+        <p>アカウントをお持ちの方は
+          <Link to="/signin" className='text-auqa-blue cursor-pointer'>こちら</Link>
+        </p>
+      </div>
     </div>
   )
 }

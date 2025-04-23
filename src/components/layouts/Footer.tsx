@@ -24,7 +24,7 @@ const Footer = () => {
   const [hideModal, setHideModal] = useState<boolean>(true);
 
   return (
-    <div className="h-[56px] pt-2 px-5 bg-white border-t-1 border-gray-300 absolute bottom-0 w-screen">
+    <div className="h-[56px] pt-2 px-5 bg-white border-t-1 border-gray-300 fixed bottom-0 w-screen">
       {isSignedIn ? (
         // ログイン時Footer
         <div className='flex justify-between mx-3'>
