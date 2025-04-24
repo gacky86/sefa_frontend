@@ -39,12 +39,32 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
   ) => {
     if(e.target.value.length <= maxLength) {
       setFlashcardParams({...flashcardParams, [key]: e.target.value});
+    } else if (maxLength < e.target.value.length) {
+      const trimmed = Array.from(e.target.value).slice(0, maxLength).join('');
+      setFlashcardParams({...flashcardParams, [key]: trimmed});
     }
     // titleの長さが0だとボタンをクリックできないようにする
     if(key === "title" && e.target.value.length !== 0) {
       setBtnDisabled(false);
     } else if (key === "title" && e.target.value.length === 0) {
       setBtnDisabled(true);
+    }
+  }
+
+  const handleTargetInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: keyof Pick<FlashCard, "inputTarget"|"outputTarget">,
+  ) => {
+    const inputNum = Number(e.target.value);
+    if (10 <= inputNum && inputNum <= 999) {
+      // 値が規定範囲内であればそのまま反映する
+      setFlashcardParams({...flashcardParams, [key]: inputNum});
+    } else if (inputNum <= 9) {
+      // 最低値を下回った数値の入力の場合は、その最低値+1の数値を代わりに入力する
+      setFlashcardParams({...flashcardParams, [key]: 10});
+    } else if (1000 <= inputNum) {
+      // 最大値を上回った数値の入力の場合は、その最大値-1の数値を代わりに入力する
+      setFlashcardParams({...flashcardParams, [key]: 999});
     }
   }
 
@@ -86,7 +106,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
               <div>
                 <input type="number" id="input-target" value={flashcardParams.inputTarget} max="999" min="10"
                 className="border-1 rounded-sm px-1 w-[75%] mr-1"
-                onChange={(e) => setFlashcardParams({...flashcardParams, inputTarget: Number(e.target.value)})}
+                onChange={(e) => handleTargetInputChange(e, "inputTarget")}
                 data-testid="flashcard-input-target-form"/>
                 枚
               </div>
@@ -94,7 +114,7 @@ const FlashCardSettingModal = ({flashcard}: {flashcard:FlashCard}) => {
               <div>
                 <input type="number" id="output-target" value={flashcardParams.outputTarget} max="999" min="10"
                 className="border-1 rounded-sm px-1 w-[75%] mr-1"
-                onChange={(e) => setFlashcardParams({...flashcardParams, outputTarget: Number(e.target.value)})}
+                onChange={(e) => handleTargetInputChange(e, "outputTarget")}
                 data-testid="flashcard-output-target-form"/>
                 枚
               </div>

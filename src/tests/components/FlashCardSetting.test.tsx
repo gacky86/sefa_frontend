@@ -206,20 +206,20 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: 単語帳�
       expect(inputTargetForm).toHaveValue(100);
     });
 
-    // 9は入力できない(min境界値)
+    // 9は入力できない(min境界値)->入力できずに10を代わりに入れる
     fireEvent.change(inputTargetForm, { target: { value: "9" } });
     expect(inputTargetForm).not.toHaveValue("9");
-    expect(inputTargetForm).toHaveValue(100);
+    expect(inputTargetForm).toHaveValue(10);
 
     // 10は入力できる(min境界値)
     fireEvent.change(inputTargetForm, { target: { value: "10" } });
-    expect(inputTargetForm).not.toHaveValue(10);
+    expect(inputTargetForm).toHaveValue(10);
 
     // 999は入力できる(max境界値)
     fireEvent.change(inputTargetForm, { target: { value: "999" } });
-    expect(inputTargetForm).not.toHaveValue(999);
+    expect(inputTargetForm).toHaveValue(999);
 
-    // 1000は入力できない(max境界値)
+    // 1000は入力できない(max境界値)->入力できずに999を代わりに入れる
     fireEvent.change(inputTargetForm, { target: { value: "1000" } });
     expect(inputTargetForm).not.toHaveValue(1000);
     expect(inputTargetForm).toHaveValue(999);
@@ -232,20 +232,20 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: 単語帳�
     fireEvent.change(outputTargetForm, { target: { value: "100" } });
     expect(outputTargetForm).toHaveValue(100);
 
-    // 9は入力できない(min境界値)
+    // 9は入力できない(min境界値)->入力できずに10を代わりに入れる
     fireEvent.change(outputTargetForm, { target: { value: "9" } });
     expect(outputTargetForm).not.toHaveValue("9");
-    expect(outputTargetForm).toHaveValue(100);
+    expect(outputTargetForm).toHaveValue(10);
 
     // 10は入力できる(min境界値)
     fireEvent.change(outputTargetForm, { target: { value: "10" } });
-    expect(outputTargetForm).not.toHaveValue(10);
+    expect(outputTargetForm).toHaveValue(10);
 
     // 999は入力できる(max境界値)
     fireEvent.change(outputTargetForm, { target: { value: "999" } });
-    expect(outputTargetForm).not.toHaveValue(999);
+    expect(outputTargetForm).toHaveValue(999);
 
-    // 1000は入力できない(max境界値)
+    // 1000は入力できない(max境界値)->入力できずに999を代わりに入れる
     fireEvent.change(outputTargetForm, { target: { value: "1000" } });
     expect(outputTargetForm).not.toHaveValue(1000);
     expect(outputTargetForm).toHaveValue(999);
@@ -306,11 +306,11 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: 単語帳�
   test('closeボタンクリック', async () => {
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
-    // closeボタンをclickすると、単語帳編集モーダルに戻る
+    // closeボタンをclickすると、単語帳詳細モーダルに戻る
     await waitFor(() => {
       expect(screen.queryByTestId('delete-flashcard-modal')).not.toBeInTheDocument();
       expect(screen.queryByTestId('modal')).toBeInTheDocument();
-      expect(screen.queryByTestId('flashcard-edit-modal')).toBeInTheDocument();
+      expect(screen.queryByTestId('flashcard-detail')).toBeInTheDocument();
     });
   });
 

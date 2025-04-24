@@ -49,6 +49,9 @@ const NewFlashCard = () => {
   ) => {
     if(e.target.value.length <= maxLength) {
       setFlashcardParams({...flashcardParams, [key]: e.target.value});
+    } else if (maxLength < e.target.value.length) {
+      const trimmed = Array.from(e.target.value).slice(0, maxLength).join('');
+      setFlashcardParams({...flashcardParams, [key]: trimmed});
     }
     // titleの長さが0だとボタンをクリックできないようにする
     if(key === "title" && e.target.value.length !== 0) {
