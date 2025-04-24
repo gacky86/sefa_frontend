@@ -16,6 +16,8 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
     japanese: "",
   }
   const [cardParams, setCardParams] = useState<Card>(initialCardParams);
+  const [ btnDisabledJp, setBtnDisabledJp ] = useState<boolean>(true);
+  const [ btnDisabledEn, setBtnDisabledEn ] = useState<boolean>(true);
 
   const handleCreateCard = () => {
     console.log('handleCreateCard');
@@ -36,6 +38,15 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
   ) => {
     if(e.target.value.length <= maxLength) {
       setCardParams({...cardParams, [key]: e.target.value});
+    } else if (maxLength < e.target.value.length) {
+      const trimmed = Array.from(e.target.value).slice(0, maxLength).join('');
+      setCardParams({...cardParams, [key]: trimmed});
+    }
+    // 長さが0だとボタンをクリックできないようにする
+    if(e.target.value.length !== 0) {
+      key === 'japanese' ? setBtnDisabledJp(false) : setBtnDisabledEn(false)
+    } else if (e.target.value.length === 0) {
+      key === 'japanese' ? setBtnDisabledJp(true) : setBtnDisabledEn(true)
     }
   }
 
@@ -55,8 +66,9 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
                   onChange={(e) => handleInputChange(e, "english", 255)}
                   data-testid="new-card-en-form"/>
       </div>
-      <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-5"
+      <button className={`text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-5 ${btnDisabledJp || btnDisabledEn ? 'opacity-50': 'opacity-100'}`}
               onClick={() => handleCreateCard()}
+              disabled={btnDisabledJp || btnDisabledEn}
               data-testid="new-card-submit-btn">追加</button>
     </div>
   )

@@ -48,6 +48,9 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
   ) => {
     if(e.target.value.length <= maxLength) {
       setCardParams({...cardParams, [key]: e.target.value});
+    } else if (maxLength < e.target.value.length) {
+      const trimmed = Array.from(e.target.value).slice(0, maxLength).join('');
+      setCardParams({...cardParams, [key]: trimmed});
     }
     // 長さが0だとボタンをクリックできないようにする
     if(e.target.value.length !== 0) {

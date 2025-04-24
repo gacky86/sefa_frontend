@@ -1,26 +1,27 @@
 import '@testing-library/jest-dom/vitest';
 import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
-import { vi } from 'vitest'
+// import { vi } from 'vitest'
 
 // Redux
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from "store/authSlice";
 import modalReducer from "store/modalSlice";
+import flashcardReducer from "store/flashcardsSlice";
 import { User } from "interfaces/index";
 
 // Components
 import Home from 'components/pages/Home';
 
 // API
-import { getFlashcardList } from "lib/api/flashcard";
+// import { getFlashcardList } from "lib/api/flashcard";
 
 // FlashcardsListの中でimportしているflashcardモジュールを丸ごとmock化する
 // getFlashcardListやその他必要な関数(その関数もvi.fn()でmock化)を返すモジュールとして
 // なので、このvi.mockで定義されているmockはFlashcardsListのimport文の部分で置き換えられて使われることになる
-vi.mock('lib/api/flashcard', () => ({
-  getFlashcardList: vi.fn(),
-}));
+// vi.mock('lib/api/flashcard', () => ({
+//   getFlashcardList: vi.fn(),
+// }));
 
 // Redux 初期state用
 const mockUser: User = {
@@ -32,11 +33,17 @@ const mockUser: User = {
   allowPasswordChange: false
 }
 
+const mockFlashcards = [
+  { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50},
+  { id: 1, userId: 0, title: "Programming", description: "", shared: true, inputTarget: 50, outputTarget: 50},
+];
+
 const renderWithProviders = (ui: React.ReactElement) => {
   const store = configureStore({
     reducer: {
       modal: modalReducer,
       auth: authReducer,
+      flashcards: flashcardReducer
     },
     preloadedState: {
       auth: {
@@ -49,6 +56,10 @@ const renderWithProviders = (ui: React.ReactElement) => {
         modalType: null,
         modalProps: null,
       },
+      flashcards: {
+        flashcards: mockFlashcards,
+        loading: false
+      }
     },
   });
 
@@ -57,14 +68,10 @@ const renderWithProviders = (ui: React.ReactElement) => {
 
 
 describe('トップページ-単語帳CRUD-カードCRUD基本機能: トップページ表示', () => {
-  const mockFlashcards = [
-    { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50},
-    { id: 1, userId: 0, title: "Programming", description: "", shared: true, inputTarget: 50, outputTarget: 50},
-  ];
   beforeEach(() => {
-    (getFlashcardList as ReturnType<typeof vi.fn>).mockResolvedValue({
-      data: mockFlashcards,
-    });
+    // (getFlashcardList as ReturnType<typeof vi.fn>).mockResolvedValue({
+    //   data: mockFlashcards,
+    // });
 
     renderWithProviders(<Home />);
 
