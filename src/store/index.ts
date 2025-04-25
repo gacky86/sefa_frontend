@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from './modalSlice';
 import authReducer from './authSlice';
 import flashcardReducer from "./flashcardsSlice";
+import fcLearningReducer from "./fcLearningSlice";
 
 export const store = configureStore({
   reducer: {
     modal: modalReducer,
     auth: authReducer,
-    flashcards: flashcardReducer
+    flashcards: flashcardReducer,
+    fcLearning: fcLearningReducer
   },
 });
 

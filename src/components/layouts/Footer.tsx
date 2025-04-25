@@ -17,6 +17,8 @@ const Footer = () => {
         // ログイン時Footer
         // <FooterSignedIn />
         // 単語帳学習時Footer
+        // =>Reduxのstateでユーザーが回答中か否かを管理しており、その値をここでselectorで取得して表示を切り替える
+        // =>そもそもinputでもoutputでもないモードの時には通常のFooterSignedInを表示する
         // <FooterFCLearningQuestion />
         <FooterFCLearningAnswer />
       ) : (
