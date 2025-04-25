@@ -7,6 +7,7 @@ import Introduction from "components/pages/Introduction";
 import Home from "components/pages/Home";
 import Setting from "components/pages/Setting";
 import Account from "components/pages/Account";
+import FCLearning from "components/pages/FCLearning";
 import YTLearning from "components/pages/YTLearning";
 import AIDictionary from "components/pages/AIDictionary";
 
@@ -87,6 +88,7 @@ const App: React.FC = () => {
               <Route path='/' element={<Home/>}/>
               <Route path='/setting' element={<Setting/>}/>
               <Route path='/account' element={<Account/>}/>
+              <Route path='/fc-learning' element={<FCLearning/>}/>
               <Route path='/yt-learning' element={<YTLearning/>}/>
               <Route path='/ai-dicrionary' element={<AIDictionary/>}/>
             </Route>

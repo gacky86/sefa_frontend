@@ -1,14 +1,21 @@
 import { FaLock } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
-import { openModal } from "store/modalSlice";
+import { closeModal, openModal } from "store/modalSlice";
 
 import { FlashCard } from "interfaces/index";
 
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+import { useNavigate } from "react-router-dom";
 
 const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const learningStart = () => {
+    dispatch(closeModal());
+    navigate('/fc-learning');
+  };
 
   return (
     <div className="p-4" data-testid="flashcard-detail">
@@ -50,7 +57,8 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
           </div>
         </div>
         <div className="border-t-1 mt-2 py-4 text-center">
-          <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue">Inputモードで学習</button>
+          <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue"
+                  onClick={() => learningStart()}>Inputモードで学習</button>
           <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue">Outputモードで学習</button>
         </div>
         <div className="border-t-1 mt-1 py-4 text-center">
