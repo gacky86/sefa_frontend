@@ -2,6 +2,7 @@ import { FaLock } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "store/modalSlice";
+import { startLearning } from "store/fcLearningSlice";
 
 import { FlashCard } from "interfaces/index";
 
@@ -12,8 +13,9 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const learningStart = () => {
+  const learningStart = (learningMode: 'input'|'output') => {
     dispatch(closeModal());
+    dispatch(startLearning({learningMode:learningMode, flashcard: flashcard}));
     navigate('/fc-learning');
   };
 
@@ -58,8 +60,9 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
         </div>
         <div className="border-t-1 mt-2 py-4 text-center">
           <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue"
-                  onClick={() => learningStart()}>Inputモードで学習</button>
-          <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue">Outputモードで学習</button>
+                  onClick={() => learningStart('input')}>Inputモードで学習</button>
+          <button className="text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue"
+                  onClick={() => learningStart('output')}>Outputモードで学習</button>
         </div>
         <div className="border-t-1 mt-1 py-4 text-center">
           <button className="text-base bg-gray-200 px-3 py-1 rounded-sm mb-3 border-1 border-dark-navy-blue"

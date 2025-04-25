@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { Card } from "interfaces/index";
+import { FlashCard } from "interfaces/index";
 
 type fcLearningState = {
   // 学習モード(Input | Output | 学習モード以外のページ)
   learningMode: "input" | "output" | null;
   // cardオブジェクト
-  card: Card | null;
+  flashcard: FlashCard | null;
   // 回答中か否か
-  userThinking: boolean;
+  userThinking: boolean | null;
 }
 
 const initialState: fcLearningState = {
   learningMode: null,
   // cardオブジェクト
-  card: null,
+  flashcard: null,
   // 回答中か否か
-  userThinking: true,
+  userThinking: null,
 }
 
 
@@ -24,17 +24,19 @@ const fcLearningSlice = createSlice({
   name: 'fcLearning',
   initialState,
   reducers: {
-    setLearningMode(state, action) {
-      state.learningMode = action.payload;
+    startLearning(state, action) {
+      state.learningMode = action.payload.learningMode;
+      state.flashcard = action.payload.flashcard;
+      state.userThinking = true;
     },
-    setCard(state, action) {
-      state.card = action.payload;
+    setUserThinking(state) {
+      state.userThinking = !state.userThinking;
     },
-    setUserThinking(state, action) {
-      state.userThinking = action.payload;
+    clearFCLearning(state) {
+      state = initialState;
     }
   }
 });
 
-export const {setLearningMode, setCard, setUserThinking} = fcLearningSlice.actions;
+export const {startLearning, clearFCLearning, setUserThinking} = fcLearningSlice.actions;
 export default fcLearningSlice.reducer;

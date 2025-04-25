@@ -1,8 +1,9 @@
 
-const Answer = () => {
+const Answer = ({answer}: {answer:string}) => {
   return (
     <div className="text-base my-8">
-      <p>このジャケット<span className="underline">を捨てたい</span>！</p>
+      {/* <p>このジャケット<span className="underline">を捨てたい</span>！</p> */}
+      <p>{answer}</p>
     </div>
   )
 }
