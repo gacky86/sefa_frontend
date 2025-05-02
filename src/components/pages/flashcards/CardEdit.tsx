@@ -20,7 +20,7 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
   const [ btnDisabledEn, setBtnDisabledEn ] = useState<boolean>(false);
 
   const handleUpdateCard = () => {
-    updateCard(card.id, cardParams)
+    updateCard(flashcard.id, card.id, cardParams)
     .then(() => {
       console.log('updated');
       dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));
@@ -31,7 +31,7 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
   }
 
   const handleDeleteCard = () => {
-    deleteCard(card.id)
+    deleteCard(flashcard.id, card.id)
     .then(() => {
       console.log('successfully deleted');
       dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));

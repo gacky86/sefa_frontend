@@ -1,21 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { FlashCard } from "interfaces/index";
+import { FlashCard, Card } from "interfaces/index";
+
+import { AxiosError } from "axios";
+
+// api
+import { getCardToLearn } from "lib/api/flashcard";
+
+export const fetchCardToLearn = createAsyncThunk(
+  'fcLearning/fetchCardToLearn',
+  async (flashcardId: number, { rejectWithValue, getState }) => {
+    try {
+      const state = getState() as { fcLearning: fcLearningState };
+      const learningMode = state.fcLearning.learningMode;
+      if (!learningMode) {
+        return rejectWithValue('学習モードが設定されていません');
+      }
+      const response = await getCardToLearn(flashcardId, learningMode);
+      return response.data as Card;
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }>;
+      return rejectWithValue(error.response?.data?.error || 'カードの取得に失敗しました');
+    }
+  }
+);
 
 type fcLearningState = {
   // 学習モード(Input | Output | 学習モード以外のページ)
   learningMode: "input" | "output" | null;
-  // cardオブジェクト
+  // flashcardオブジェクト
   flashcard: FlashCard | null;
+  // cardオブジェクト
+  card: Card | null;
   // 回答中か否か
   userThinking: boolean | null;
 }
 
 const initialState: fcLearningState = {
   learningMode: null,
-  // cardオブジェクト
   flashcard: null,
-  // 回答中か否か
+  card: null,
   userThinking: null,
 }
 
@@ -35,6 +59,15 @@ const fcLearningSlice = createSlice({
     clearFCLearning(state) {
       state = initialState;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCardToLearn.fulfilled, (state, action) => {
+        state.card = action.payload;
+      })
+      .addCase(fetchCardToLearn.rejected, (state, action) => {
+        console.error('カード取得失敗:', action.payload);
+      });
   }
 });
 
