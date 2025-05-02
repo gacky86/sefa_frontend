@@ -1,6 +1,6 @@
 // flashcard.ts
 // 役割：HTTPリクエストを定義すること
-import { FlashCard } from "interfaces/index";
+import { FlashCard, Card } from "interfaces/index";
 
 import client from 'lib/api/client';
 import { getUserAuthHeader } from "lib/api/client";
@@ -35,7 +35,7 @@ export const deleteFlashcard = (id: number) => {
 };
 
 // 「学習するべき順番に並び替えたときの優先順位が一番目のカード」を取得
-export const getCardToLearn = (flashcardId: number, learningMode: 'input' | 'output') => {
+export const getCardToLearn = (flashcardId: number, learningMode: 'input' | 'output', lastCardId: number) => {
   const authHeader = getUserAuthHeader();
-  return client.get(`/flashcards/${flashcardId}/card_to_learn`, {headers: authHeader, params: { learning_mode: learningMode } })
+  return client.get(`/flashcards/${flashcardId}/card_to_learn`, {headers: authHeader, params: { learning_mode: learningMode, last_card_id: lastCardId } })
 }

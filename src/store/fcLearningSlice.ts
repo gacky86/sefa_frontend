@@ -11,12 +11,26 @@ export const fetchCardToLearn = createAsyncThunk(
   'fcLearning/fetchCardToLearn',
   async (flashcardId: number, { rejectWithValue, getState }) => {
     try {
+      // learningMode stateを使うためにgetState
       const state = getState() as { fcLearning: fcLearningState };
       const learningMode = state.fcLearning.learningMode;
+      // 連続して同じカードを出さないように、既存のcard stateもbackendに送る
+      const lastCard = state.fcLearning.card;
+      let lastCardId;
+      if (lastCard === null) {
+        lastCardId = -1
+      } else {
+        lastCardId = lastCard.id
+      }
+
       if (!learningMode) {
         return rejectWithValue('学習モードが設定されていません');
       }
-      const response = await getCardToLearn(flashcardId, learningMode);
+
+      // 学習するカードをbackendから取得する
+      const response = await getCardToLearn(flashcardId, learningMode, lastCardId);
+      console.log(response);
+
       return response.data as Card;
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
