@@ -18,7 +18,7 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
   const [cards, setCards] = useState<Card[]>([]);
 
   const handleGetCardList = () => {
-    getCardList()
+    getCardList(flashcard.id)
     .then((res: AxiosResponse<Card[]>) => {
       setCards(res.data);
     })

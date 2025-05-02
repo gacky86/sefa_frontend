@@ -2,11 +2,13 @@
 // 役割：HTTPリクエストを定義すること
 import { FlashCard } from "interfaces/index";
 
-import client from './client';
+import client from 'lib/api/client';
+import { getUserAuthHeader } from "lib/api/client";
 
 // 一覧
 export const getFlashcardList = () => {
-  return client.get<FlashCard[]>('/flashcards');
+  const authHeader = getUserAuthHeader();
+  return client.get<FlashCard[]>('/flashcards', {headers: authHeader, params: { only_mine: "onlyMine" }});
 };
 
 // 詳細
@@ -16,15 +18,24 @@ export const getFlashcardDetail = (id: number) => {
 
 // 新規作成
 export const createFlashcard = (params: FlashCard) => {
-  return client.post('/flashcards', params);
+  const authHeader = getUserAuthHeader();
+  return client.post('/flashcards', params, { headers: authHeader });
 };
 
 // 更新
 export const updateFlashcard = (id: number, params: FlashCard) => {
-  return client.patch(`/flashcards/${id}`, params);
+  const authHeader = getUserAuthHeader();
+  return client.patch(`/flashcards/${id}`, params, { headers: authHeader });
 };
 
 // 削除
 export const deleteFlashcard = (id: number) => {
-  return client.delete(`/flashcards/${id}`);
+  const authHeader = getUserAuthHeader();
+  return client.delete(`/flashcards/${id}`, {headers: authHeader});
 };
+
+// 「学習するべき順番に並び替えたときの優先順位が一番目のカード」を取得
+export const getCardToLearn = (flashcardId: number, learningMode: 'input' | 'output') => {
+  const authHeader = getUserAuthHeader();
+  return client.get(`/flashcards/${flashcardId}/card_to_learn`, {headers: authHeader, params: { learning_mode: learningMode } })
+}

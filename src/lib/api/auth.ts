@@ -1,6 +1,7 @@
 // なぜかここではbaseUrlが効かないので相対パスでimport
-import client from "./client"
-import Cookies from "js-cookie"
+import client from "lib/api/client"
+import { getUserAuthHeader } from "lib/api/client";
+// import Cookies from "js-cookie"
 
 // なぜかここではbaseUrlが効かないので相対パスでimport
 import { SignUpParams, SignInParams } from "../../interfaces/index"
@@ -17,23 +18,14 @@ export const signIn = (params: SignInParams)  => {
 
 // サインアウト（ログアウト）
 export const signOut = () => {
-  return client.delete("auth/sign_out", { headers: {
-    "access-token": Cookies.get("_access_token"),
-    "client": Cookies.get("_client"),
-    "uid": Cookies.get("_uid")
-  }})
+  const authHeader = getUserAuthHeader();
+  return client.delete("auth/sign_out", { headers: authHeader })
 }
 
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
-  console.log('2 getCurrentUser');
+  const authHeader = getUserAuthHeader();
 
-  if (!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return
-  return client.get("/auth/sessions", {
-    headers: {
-      "access-token": Cookies.get("_access_token"),
-      "client": Cookies.get("_client"),
-      "uid": Cookies.get("_uid")
-    }
-  })
+  if (!authHeader) return
+  return client.get("/auth/sessions", { headers: authHeader })
 }

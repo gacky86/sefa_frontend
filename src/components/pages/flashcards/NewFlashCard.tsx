@@ -19,8 +19,8 @@ const NewFlashCard = () => {
   if (!user) return null;
 
   const initialFlashcard: FlashCard = {
-    id: 0,
-    userId: user.id,
+    // id: 0,
+    // userId: user.id,
     title: "",
     description: "",
     shared: false,

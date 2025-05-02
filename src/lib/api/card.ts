@@ -1,29 +1,38 @@
 // card.ts
 // 役割：HTTPリクエストを定義すること
 import client from './client';
-import { Card } from "../../interfaces/index";
+import { Card, CardParams } from "interfaces/index";
 
 // 一覧
-export const getCardList = () => {
-  return client.get('/cards');
+export const getCardList = (flashcard_id: number) => {
+  return client.get(`/flashcards/${flashcard_id}/cards`);
 };
 
 // 詳細
-export const getCardDetail = (id: number) => {
-  return client.get(`/cards/${id}`);
+export const getCardDetail = (flashcard_id: number, id: number) => {
+  return client.get(`/flashcards/${flashcard_id}/cards/${id}`);
 };
 
 // 新規作成
-export const createCard = (params: Card) => {
-  return client.post('/cards', params);
+export const createCard = (flashcard_id: number, params: CardParams) => {
+  return client.post(`/flashcards/${flashcard_id}/cards`, params);
 };
 
 // 更新
-export const updateCard = (id: number, params: Card) => {
-  return client.patch(`/cards/${id}`, params);
+export const updateCard = (flashcard_id: number, id: number, params: Card) => {
+  return client.patch(`/flashcards/${flashcard_id}/cards/${id}`, params);
 };
 
 // 削除
-export const deleteCard = (id: number) => {
-  return client.delete(`/cards/${id}`);
+export const deleteCard = (flashcard_id: number, id: number) => {
+  return client.delete(`/flashcards/${flashcard_id}/cards/${id}`);
+};
+
+// 単語帳学習機能難易度ボタンを押した時の処理
+export const updateCardLearningFactor =  (
+  flashcard_id: number,
+  id: number,
+  difficulty: "Again"|"Hard"|"Good"|"Easy",
+  learningMode: 'input' | 'output' ) => {
+  return client.patch(`/flashcards/${flashcard_id}/cards/${id}/update_learning_factor`, {difficulty: difficulty, learning_mode: learningMode});
 };

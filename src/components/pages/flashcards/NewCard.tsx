@@ -1,27 +1,25 @@
 import { useState } from "react";
 
 import { createCard } from "lib/api/card";
-import { FlashCard, Card } from "interfaces/index";
+import { FlashCard, CardParams } from "interfaces/index";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 import { AxiosError } from "axios";
 
 const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
   const initialCardParams = {
-    id: 0,
-    flashcardId: flashcard.id,
     inputProficiency: 0,
     outputProficiency: 0,
     english: "",
     japanese: "",
   }
-  const [cardParams, setCardParams] = useState<Card>(initialCardParams);
+  const [ cardParams, setCardParams ] = useState<CardParams>(initialCardParams);
   const [ btnDisabledJp, setBtnDisabledJp ] = useState<boolean>(true);
   const [ btnDisabledEn, setBtnDisabledEn ] = useState<boolean>(true);
 
   const handleCreateCard = () => {
     console.log('handleCreateCard');
-    createCard(cardParams)
+    createCard(flashcard.id, cardParams)
     .then(() => {
       console.log('successfully created a new card');
       setCardParams(initialCardParams);
@@ -33,7 +31,7 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
-    key: keyof Pick<Card, "japanese"|"english">,
+    key: keyof Pick<CardParams, "japanese"|"english">,
     maxLength: number
   ) => {
     if(e.target.value.length <= maxLength) {
