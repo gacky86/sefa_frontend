@@ -39,3 +39,8 @@ export const getCardToLearn = (flashcardId: number, learningMode: 'input' | 'out
   const authHeader = getUserAuthHeader();
   return client.get(`/flashcards/${flashcardId}/card_to_learn`, {headers: authHeader, params: { learning_mode: learningMode, last_card_id: lastCardId } })
 }
+
+export const getCountsTodaysCards = (flashcardId: number) => {
+  const authHeader = getUserAuthHeader();
+  return client.get(`/flashcards/${flashcardId}/count_todays_cards`, {headers: authHeader})
+}

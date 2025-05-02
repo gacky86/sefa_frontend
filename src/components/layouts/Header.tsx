@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Logo from "assets/SEFA.svg?react";
 
+import TodaysLearningCount from "components/layouts/header/TodaysLearningCount";
+
 // Redux
 import { useSelector } from 'react-redux';
 import { RootState } from 'store/index';
@@ -17,9 +19,7 @@ const Header = () => {
         </Link>
       </div>
       {isSignedIn ? (
-        <div className="text-base mr-3 pt-3 text-auqa-blue">
-          <p>本日の学習: 104枚</p>
-        </div>
+        <TodaysLearningCount />
       ) : (
         <div className="text-base mr-3 pt-3">
           <Link to='/signin' className="text-auqa-blue p-3">
