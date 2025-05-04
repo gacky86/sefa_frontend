@@ -30,9 +30,16 @@ export const deleteCard = (flashcard_id: number, id: number) => {
 
 // 単語帳学習機能難易度ボタンを押した時の処理
 export const updateCardLearningFactor =  (
-  flashcard_id: number,
+  flashcardId: number,
   id: number,
   difficulty: "Again"|"Hard"|"Good"|"Easy",
   learningMode: 'input' | 'output' ) => {
-  return client.patch(`/flashcards/${flashcard_id}/cards/${id}/update_learning_factor`, {difficulty: difficulty, learning_mode: learningMode});
+  return client.patch(`/flashcards/${flashcardId}/cards/${id}/update_learning_factor`, {difficulty: difficulty, learning_mode: learningMode});
+};
+
+export const getReviewInterval = (
+  flashcardId: number,
+  id: number,
+  learningMode: 'input' | 'output') => {
+  return client.get(`/flashcards/${flashcardId}/cards/${id}/fetch_review_interval`, {params: {learning_mode: learningMode}});
 };
