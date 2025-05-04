@@ -16,7 +16,7 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
       <p className="text-xl text-center">{flashcard.title}</p>
       <p className="text-sm text-center">{flashcard.description}</p>
       <div className="m-auto w-[90%]">
-        <FlashcardProficiency />
+        <FlashcardProficiency flashcard={flashcard}/>
         <FlashcardTodaysTarget flashcard={flashcard}/>
         <FlashcardLearningStartBtn flashcard={flashcard}/>
         <FlashcardEditBtn flashcard={flashcard}/>

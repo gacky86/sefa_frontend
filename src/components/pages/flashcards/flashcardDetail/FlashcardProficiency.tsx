@@ -24,6 +24,8 @@ const FlashcardProficiency = ({flashcard}: {flashcard: FlashCard}) => {
   }
 
   useEffect(() => {
+    console.log('effect');
+
     handleGetFlashcardProficiency();
   }, []);
 
