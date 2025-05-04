@@ -44,3 +44,8 @@ export const getCountsTodaysCards = (flashcardId: number) => {
   const authHeader = getUserAuthHeader();
   return client.get(`/flashcards/${flashcardId}/count_todays_cards`, {headers: authHeader})
 }
+
+export const getFlashcardProficiency = (flashcardId: number) => {
+  const authHeader = getUserAuthHeader();
+  return client.get(`/flashcards/${flashcardId}/flashcard_proficiency`, {headers: authHeader})
+}
