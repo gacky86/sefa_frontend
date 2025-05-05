@@ -3,7 +3,7 @@ import { createFlashcard } from "lib/api/flashcard";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
 // Redux
-import { FlashCard } from "interfaces/index";
+import { FlashCardParams } from "interfaces/index";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/index';
 import { closeModal } from "store/modalSlice";
@@ -18,9 +18,7 @@ const NewFlashCard = () => {
   // initialFlashcard
   if (!user) return null;
 
-  const initialFlashcard: FlashCard = {
-    // id: 0,
-    // userId: user.id,
+  const initialFlashcard: FlashCardParams = {
     title: "",
     description: "",
     shared: false,
@@ -28,7 +26,7 @@ const NewFlashCard = () => {
     outputTarget: 50
   }
 
-  const [flashcardParams, setFlashcardParams] = useState<FlashCard>(initialFlashcard);
+  const [flashcardParams, setFlashcardParams] = useState<FlashCardParams>(initialFlashcard);
 
   const handleCreateFlashCard = () => {
     createFlashcard(flashcardParams)
@@ -44,7 +42,7 @@ const NewFlashCard = () => {
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    key: keyof Pick<FlashCard, "title"|"description">,
+    key: keyof Pick<FlashCardParams, "title"|"description">,
     maxLength: number
   ) => {
     if(e.target.value.length <= maxLength) {
