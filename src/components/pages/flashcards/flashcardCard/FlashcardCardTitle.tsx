@@ -1,7 +1,4 @@
 import { FaLock } from "react-icons/fa";
-// Redux
-import { useDispatch } from "react-redux";
-import { openModal } from "store/modalSlice";
 
 import { FlashCard } from "interfaces/index";
 

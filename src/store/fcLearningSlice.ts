@@ -71,7 +71,10 @@ const fcLearningSlice = createSlice({
       state.userThinking = !state.userThinking;
     },
     clearFCLearning(state) {
-      state = initialState;
+      state.learningMode = initialState.learningMode;
+      state.flashcard = initialState.flashcard;
+      state.userThinking = initialState.userThinking;
+      state.card = initialState.card;
     }
   },
   extraReducers: (builder) => {
@@ -80,6 +83,7 @@ const fcLearningSlice = createSlice({
         state.card = action.payload;
       })
       .addCase(fetchCardToLearn.rejected, (state, action) => {
+        state.card = null
         console.error('カード取得失敗:', action.payload);
       });
   }

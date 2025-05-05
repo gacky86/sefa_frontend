@@ -4,6 +4,8 @@ import Modal from "components/layouts/Modal";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
 
+import { main } from "lib/api/gemini";
+
 const Home = () => {
   const dispatch = useDispatch();
 
@@ -22,6 +24,7 @@ const Home = () => {
         <FlashCardsList />
         <Modal />
       </div>
+      <button onClick={() => main()}>Geminiになんか言う</button>
     </div>
   )
 }
