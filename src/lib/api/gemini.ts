@@ -1,13 +1,12 @@
-import { GoogleGenAI } from "@google/genai";
+import axios from "axios"
 
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBV5ujlARcPaMqXxr8Yl6gGrSbYpHRWciQ" });
+// import client from 'lib/api/client';
 
-export async function main() {
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: "Please make a sentence using words [take it easy] and give me a Japanese-transrated sentence.",
-  });
-  console.log(response.text);
+export const checkBoolean = async (systemInstruction: string, text: string) => {
+
+  return axios.post('http://localhost:3000/api/gemini',{
+    system_instruction: systemInstruction,
+    text: text},
+    { headers: {"Content-Type": "application/json"}}
+  );
 }
-
-main();

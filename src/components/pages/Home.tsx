@@ -4,10 +4,22 @@ import Modal from "components/layouts/Modal";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
 
-import { main } from "lib/api/gemini";
+import { checkBoolean } from "lib/api/gemini";
 
 const Home = () => {
   const dispatch = useDispatch();
+
+  const geminiTest = async () => {
+    try {
+      const res = await checkBoolean("次の英単語を使ってランダムな英文とその日本語訳を作成してください。次のJSON schemaで出力してください。{\"type\":\"object\",\"properties\":{\"english\":{\"type\":\"string\"},\"english\":{\"type\":\"string\"}}}", "short of cash");
+      console.log(res);
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  }
 
   return (
     //
@@ -24,7 +36,7 @@ const Home = () => {
         <FlashCardsList />
         <Modal />
       </div>
-      <button onClick={() => main()}>Geminiになんか言う</button>
+      <button onClick={() => geminiTest()}>Geminiになんか言う</button>
     </div>
   )
 }
