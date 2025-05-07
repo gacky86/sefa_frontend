@@ -6,9 +6,6 @@ import CardEditBtn from "components/pages/fclearning/CardEditBtn";
 // api
 import { checkBoolean } from "lib/api/gemini";
 
-// interface
-import { Card } from "interfaces/index";
-
 // axios responce types
 import { useEffect, useState } from "react";
 
