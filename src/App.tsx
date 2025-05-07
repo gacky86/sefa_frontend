@@ -9,6 +9,7 @@ import Setting from "components/pages/Setting";
 import Account from "components/pages/Account";
 import FCLearning from "components/pages/FCLearning";
 import YTLearning from "components/pages/YTLearning";
+import YTSearching from "components/pages/YTSearching";
 import AIDictionary from "components/pages/AIDictionary";
 
 import CommonLayout from "components/layouts/CommonLayout";
@@ -89,6 +90,7 @@ const App: React.FC = () => {
               <Route path='/setting' element={<Setting/>}/>
               <Route path='/account' element={<Account/>}/>
               <Route path='/fc-learning' element={<FCLearning/>}/>
+              <Route path='/yt-searching' element={<YTSearching/>}/>
               <Route path='/yt-learning' element={<YTLearning/>}/>
               <Route path='/ai-dicrionary' element={<AIDictionary/>}/>
             </Route>
