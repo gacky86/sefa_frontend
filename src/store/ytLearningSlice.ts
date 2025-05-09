@@ -8,6 +8,8 @@ youtubeAPIResultItem[], string, { state: { ytLearning: ytLearningState } }>(
   async (keyword, _thunkAPI) => {
     try {
       const res = await searchVideoByKeyword(keyword, 10);
+      console.log(JSON.parse(res.data.result).items);
+
       return JSON.parse(res.data.result).items;
     } catch (error: any) {
       throw error;
