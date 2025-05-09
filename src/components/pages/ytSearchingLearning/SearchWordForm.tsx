@@ -1,6 +1,6 @@
 import React from 'react'
 
-const VideoScript = () => {
+const SearchWordForm = () => {
   return (
     <div>
 
@@ -8,4 +8,4 @@ const VideoScript = () => {
   )
 }
 
-export default VideoScript
+export default SearchWordForm
