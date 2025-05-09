@@ -4,13 +4,15 @@ import modalReducer from './modalSlice';
 import authReducer from './authSlice';
 import flashcardReducer from "./flashcardsSlice";
 import fcLearningReducer from "./fcLearningSlice";
+import ytLearningReducer from "./ytLearningSlice";
 
 export const store = configureStore({
   reducer: {
     modal: modalReducer,
     auth: authReducer,
     flashcards: flashcardReducer,
-    fcLearning: fcLearningReducer
+    fcLearning: fcLearningReducer,
+    ytLearning: ytLearningReducer,
   },
 });
 
