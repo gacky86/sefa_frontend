@@ -4,7 +4,7 @@ import FCListBtn from "components/pages/fclearning/FCListBtn";
 import CardEditBtn from "components/pages/fclearning/CardEditBtn";
 
 // api
-import { checkBoolean } from "lib/api/gemini";
+import { generateSentence } from "lib/api/gemini";
 
 // axios responce types
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ const FCLearning = () => {
       const japanese = card.japanese
       const english = card.english
       try {
-        const res = await checkBoolean("次の英単語を次の日本語の意味で使い、ランダムな英文とその日本語訳を作成してください。次のJSON schemaで出力してください。{\"type\":\"object\",\"properties\":{\"english\":{\"type\":\"string\"},\"english\":{\"type\":\"string\"}}}",
+        const res = await generateSentence("次の英単語を次の日本語の意味で使い、ランダムな英文とその日本語訳を作成してください。次のJSON schemaで出力してください。{\"type\":\"object\",\"properties\":{\"english\":{\"type\":\"string\"},\"english\":{\"type\":\"string\"}}}",
           `${english}, ${japanese}`);
         const parsedResult = JSON.parse(res.data.result);
 
