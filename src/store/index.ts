@@ -5,6 +5,7 @@ import authReducer from './authSlice';
 import flashcardReducer from "./flashcardsSlice";
 import fcLearningReducer from "./fcLearningSlice";
 import ytLearningReducer from "./ytLearningSlice";
+import bookmarkedVideoReducer from "./bookmarkedVideoSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     flashcards: flashcardReducer,
     fcLearning: fcLearningReducer,
     ytLearning: ytLearningReducer,
+    bookmarkedVideo: bookmarkedVideoReducer,
   },
 });
 
