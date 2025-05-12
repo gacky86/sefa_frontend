@@ -101,3 +101,12 @@ export type youtubeAPIResultItem = {
     };
   };
 };
+
+export interface BookmarkVideo {
+  id: number,
+  userId: number,
+  videoJson: youtubeAPIResultItem
+}
+export interface BookmarkVideoParams {
+  videoJson: youtubeAPIResultItem
+}

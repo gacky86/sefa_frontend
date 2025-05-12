@@ -1,14 +1,32 @@
 import BookmarkedVideoCard from "components/pages/ytSearchingLearning/BookmarkedVideoCard";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getBookmarkedVideos } from "store/bookmarkedVideoSlice";
+import { RootState, AppDispatch } from "store";
 
 
 const BookmarkedVideosList = () => {
-  // BEからbookmarkのvideoのurlを取得して、それをBEでYTのAPI経由で取得してFEに返す
+  const dispatch = useDispatch<AppDispatch>();
+  const {bookmarkedVideoList} = useSelector((state:RootState) => state.bookmarkedVideo);
 
+
+  useEffect(() => {
+    dispatch(getBookmarkedVideos());
+  }, []);
 
   return (
     <div>
       <h2 className="text-xl text-center">ブックマーク</h2>
-      <BookmarkedVideoCard/>
+      {bookmarkedVideoList ? (
+        bookmarkedVideoList.map((bookmarkedVideo, key) => {
+        return (
+          <BookmarkedVideoCard key={key} video={bookmarkedVideo.videoJson} />
+        )
+      })
+      ) : (
+        <></>
+      ) }
     </div>
   )
 }
