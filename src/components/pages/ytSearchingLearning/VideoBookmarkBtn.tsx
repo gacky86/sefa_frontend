@@ -9,22 +9,26 @@ import { youtubeAPIResultItem } from "interfaces/index";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookmarkedVideo, removeBookmarkedVideo } from "store/bookmarkedVideoSlice";
 import { RootState } from "store";
+import { useState } from "react";
 
 
 const VideoBookmarkBtn = ({video, bookmarked} : {video: youtubeAPIResultItem, bookmarked: boolean}) => {
+  const [isBookmakrked, setIsBookmarked] = useState<boolean>(bookmarked);
   const {bookmarkedVideoList} = useSelector((state:RootState) => state.bookmarkedVideo);
   const dispatch = useDispatch();
 
+  // ブックマークに登録
   const handleCreateBookmarkVideo = async () => {
     try {
       const res = await createBookmarkVideo({videoJson: video});
       dispatch(addBookmarkedVideo(res.data));
-      console.log(res);
+      setIsBookmarked(true);
     } catch (error) {
       console.log(error);
     }
   }
 
+  // ブックマークから削除
   const handleDeleteBookmarkVideo = async () => {
     // bookmarkedVideoListの中からvideoのvideoIdが一致する要素を探す
     const matchedVideo = bookmarkedVideoList?.find(
@@ -42,19 +46,20 @@ const VideoBookmarkBtn = ({video, bookmarked} : {video: youtubeAPIResultItem, bo
       const res = await deleteBookmarkVideo(deleteVideoId);
       dispatch(removeBookmarkedVideo(matchedVideo));
       console.log(res);
+      setIsBookmarked(false);
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <>
-      {bookmarked ? (
+    <div onClick={(e) => e.stopPropagation()}>
+      {isBookmakrked ? (
         <FaBookmark onClick={() => handleDeleteBookmarkVideo()}/>
       ) : (
         <FaRegBookmark onClick={() => handleCreateBookmarkVideo()}/>
       )}
-    </>
+    </div>
   )
 }
 

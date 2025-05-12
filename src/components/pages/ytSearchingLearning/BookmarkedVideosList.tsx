@@ -16,17 +16,19 @@ const BookmarkedVideosList = () => {
   }, []);
 
   return (
-    <div>
-      <h2 className="text-xl text-center">ブックマーク</h2>
-      {bookmarkedVideoList ? (
-        bookmarkedVideoList.map((bookmarkedVideo, key) => {
-        return (
-          <BookmarkedVideoCard key={key} video={bookmarkedVideo.videoJson} />
-        )
-      })
-      ) : (
-        <></>
-      ) }
+    <div className="mt-6">
+      <h2 className="text-xl text-center">ブックマーク済み動画</h2>
+      <div className="flex flex-wrap gap-2">
+        {bookmarkedVideoList ? (
+          bookmarkedVideoList.map((bookmarkedVideo, key) => {
+          return (
+            <BookmarkedVideoCard key={key} video={bookmarkedVideo.videoJson} />
+          )
+        })
+        ) : (
+          <></>
+        ) }
+      </div>
     </div>
   )
 }

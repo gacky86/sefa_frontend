@@ -31,7 +31,7 @@ const BookmarkedVideoCard = ({video}: {video:youtubeAPIResultItem}) => {
         <div className='col-span-2 rounded-full bg-black w-[20px] h-[20px]'>s</div>
         {/* title */}
         <div className='col-span-5 col-start-3 text-sm/4 text-black'>
-          <h3 className='text-sm/4 font-light'>{refineTitle(video.snippet.title, 40)}</h3>
+          <h3 className='text-sm/4 font-light'>{refineTitle(video.snippet.title, 20)}</h3>
         </div>
         {/* bookmark btn */}
         <div className="col-start-8">
