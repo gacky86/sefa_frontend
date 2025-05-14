@@ -77,7 +77,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className='bg-super-light-sky-blue h-screen'>
+      <div className='bg-super-light-sky-blue min-h-screen'>
         <CommonLayout>
           <Routes>
             <Route path='/signup' element={<SignUp/>}/>

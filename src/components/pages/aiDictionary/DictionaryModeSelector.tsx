@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "store";
 
-import { setSearchMode } from "store/aiDictionarySlice";
+import { switchSearchMode } from "store/aiDictionarySlice";
 import { SearchMode } from "interfaces/index";
 
 const DictionaryModeSelector = () => {
@@ -9,7 +9,7 @@ const DictionaryModeSelector = () => {
   const { searchMode } = useSelector((state:RootState) => state.aiDictionary);
 
   const handleSetSearchMode = (mode: SearchMode) => {
-    dispatch(setSearchMode(mode));
+    dispatch(switchSearchMode(mode));
   }
 
   return (

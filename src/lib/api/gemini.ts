@@ -1,5 +1,5 @@
 import axios from "axios"
-import { SearchMode } from "interfaces/index";
+import { SearchMode, CardQA, dictionaryRes } from "interfaces/index";
 
 const generateSentence = async (systemInstruction: string, text: string) => {
 
@@ -10,10 +10,6 @@ const generateSentence = async (systemInstruction: string, text: string) => {
   );
 }
 
-type CardQA = {
-  question: string;
-  answer: string;
-};
 
 export const generateCardQAByGemini = async (
   learningMode: 'input'|'output',
@@ -38,14 +34,16 @@ export const generateCardQAByGemini = async (
   }
 }
 
-export const searchWordByGemini = async (keyword: string, mode: SearchMode) => {
+export const searchWordByGemini = async (
+  keyword: string,
+  mode: SearchMode): Promise<dictionaryRes | undefined> => {
   let systemInstruction = "";
   switch (mode) {
     case 'JPtoEN':
-      systemInstruction = "次の日本語の単語または表現の意味に沿うような英語の単語または表現、どのような場面で使うかの説明(日本語で)、それを使った例文を一つ出力してください、複数の候補がある場合はそれら全てを出力してください。一つの単語または表現について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"wordOrPhrase\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"}}}";
+      systemInstruction = "次の日本語の単語または表現の意味に沿うような英語の単語または表現、どのような場面で使うかの説明(日本語で)、それを使った例文を一つ出力してください、複数の候補がある場合はそれら全てを出力してください。一つの単語または表現について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"wordOrPhrase\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"},\"checked\":{\"type\":\"false\"},\"registered\":{\"type\":\"false\"}}} ただし、日本語として意味が通らない文字列が渡された場合は空の配列を返してください。";
       break
     case 'ENtoJP':
-      systemInstruction = "次の英語の単語または表現の日本語での意味を出力してください。また、その英語を使った例文を一つ出力してください、複数の意味がある場合はそれら全てを出力してください。一つの日本語での意味とその例文について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"japanese\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"}}}";
+      systemInstruction = "次の英語の単語または表現の日本語での意味と、どのような場面で使うかの説明(日本語で)、その英語を使った例文を一つ出力してください、複数の意味がある場合はそれら全てを出力してください。一つの日本語での意味とその例文について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"wordOrPhrase\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"},\"checked\":{\"type\":\"false\"},\"registered\":{\"type\":\"false\"}}} ただし、英語として意味が通らない文字列が渡された場合は空の配列を返してください。";
       break
     default:
       break;
