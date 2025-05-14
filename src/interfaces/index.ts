@@ -63,6 +63,7 @@ export interface CardParams {
   outputProficiency: number,
   english: string,
   japanese: string,
+  context?: string,
   sourceVideoUrl?: string,
   reviewedDate?: string,
   sourceVideoTimestamp?: string
@@ -111,3 +112,16 @@ export interface BookmarkVideoParams {
   videoJson: youtubeAPIResultItem
 }
 export type SearchMode = 'ENtoJP' | 'JPtoEN' ;
+
+export type CardQA = {
+  question: string;
+  answer: string;
+};
+
+export type dictionaryRes = {
+  wordOrPhrase: string;
+  context: string;
+  example: string;
+  checked: boolean;
+  registered: boolean;
+}
