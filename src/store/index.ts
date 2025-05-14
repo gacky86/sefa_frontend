@@ -6,6 +6,7 @@ import flashcardReducer from "./flashcardsSlice";
 import fcLearningReducer from "./fcLearningSlice";
 import ytLearningReducer from "./ytLearningSlice";
 import bookmarkedVideoReducer from "./bookmarkedVideoSlice";
+import aiDictionaryReducer from "./aiDictionarySlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     fcLearning: fcLearningReducer,
     ytLearning: ytLearningReducer,
     bookmarkedVideo: bookmarkedVideoReducer,
+    aiDictionary: aiDictionaryReducer,
   },
 });
 

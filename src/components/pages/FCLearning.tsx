@@ -4,7 +4,7 @@ import FCListBtn from "components/pages/fclearning/FCListBtn";
 import CardEditBtn from "components/pages/fclearning/CardEditBtn";
 
 // api
-import { generateSentence } from "lib/api/gemini";
+import { generateCardQAByGemini } from "lib/api/gemini";
 
 // axios responce types
 import { useEffect, useState } from "react";
@@ -25,32 +25,6 @@ const FCLearning = () => {
   }
   const [ cardQA, setCardQA ] = useState(intialCardQA);
 
-  const generateCardQA = async () => {
-    if(card) {
-      const japanese = card.japanese
-      const english = card.english
-      try {
-        const res = await generateSentence("次の英単語を次の日本語の意味で使い、ランダムな英文とその日本語訳を作成してください。次のJSON schemaで出力してください。{\"type\":\"object\",\"properties\":{\"english\":{\"type\":\"string\"},\"english\":{\"type\":\"string\"}}}",
-          `${english}, ${japanese}`);
-        const parsedResult = JSON.parse(res.data.result);
-
-        switch (learningMode) {
-          case 'input':
-            setCardQA({ ...cardQA, question: parsedResult.english, answer: parsedResult.japanese });
-          case 'output':
-            setCardQA({ ...cardQA, question: parsedResult.japanese, answer: parsedResult.english });
-          default:
-            break;
-        }
-        console.log(parsedResult.japanese);
-        console.log(parsedResult.english);
-
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-
   useEffect(() => {
     if (flashcard) {
       dispatch(fetchCardToLearn(flashcard.id));
@@ -58,8 +32,14 @@ const FCLearning = () => {
   }, [])
 
   useEffect(() => {
-    if(card) {
-      generateCardQA();
+    if (card && learningMode) {
+      const fetchQA = async () => {
+        const generateResult = await generateCardQAByGemini(learningMode, card.japanese, card.english);
+        if (generateResult) {
+          setCardQA(generateResult);
+        }
+      };
+      fetchQA();
     }
   }, [card]);
 
