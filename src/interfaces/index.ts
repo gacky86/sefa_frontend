@@ -110,3 +110,4 @@ export interface BookmarkVideo {
 export interface BookmarkVideoParams {
   videoJson: youtubeAPIResultItem
 }
+export type SearchMode = 'ENtoJP' | 'JPtoEN' ;
