@@ -1,4 +1,4 @@
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 import { deleteFlashcard } from "lib/api/flashcard";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
@@ -10,7 +10,7 @@ import { removeFlashcard } from "store/flashcardsSlice";
 
 
 
-const FlashCardDeleteModal = ({flashcard}:{flashcard:FlashCard}) => {
+const FlashcardDeleteModal = ({flashcard}:{flashcard:Flashcard}) => {
   const dispatch = useDispatch();
 
   const handleDeleteFlashcard = () => {
@@ -44,4 +44,4 @@ const FlashCardDeleteModal = ({flashcard}:{flashcard:FlashCard}) => {
   )
 }
 
-export default FlashCardDeleteModal
+export default FlashcardDeleteModal

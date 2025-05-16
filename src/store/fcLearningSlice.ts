@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { FlashCard, Card } from "interfaces/index";
+import { Flashcard, Card } from "interfaces/index";
 
 import { AxiosError } from "axios";
 
@@ -43,7 +43,7 @@ type fcLearningState = {
   // 学習モード(Input | Output | 学習モード以外のページ)
   learningMode: "input" | "output" | null;
   // flashcardオブジェクト
-  flashcard: FlashCard | null;
+  flashcard: Flashcard | null;
   // cardオブジェクト
   card: Card | null;
   // 回答中か否か

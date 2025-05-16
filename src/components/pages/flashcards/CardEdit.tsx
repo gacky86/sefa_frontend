@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { FlashCard, Card } from "interfaces/index";
-import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+import { Flashcard, Card } from "interfaces/index";
 import { updateCard, deleteCard } from "lib/api/card";
 
-import { FaRegTrashAlt } from "react-icons/fa";
 
+
+// components
+import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+import MainBtn from "components/shared/MainBtn";
+import DeleteBtn from "components/shared/DeleteBtn";
+import TextareaForm from "components/shared/TextareaForm";
 
 import { AxiosError } from "axios";
 
@@ -12,7 +16,7 @@ import { openModal } from "store/modalSlice";
 
 import { useDispatch } from "react-redux";
 
-const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
+const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
   const dispatch = useDispatch();
 
   const [cardParams, setCardParams] = useState<Card>(card);
@@ -65,27 +69,25 @@ const CardEdit = ({flashcard, card}: {flashcard: FlashCard, card: Card}) => {
       <ModalCloseBtn onClose={{modalType: 'cardsList', modalProps: flashcard}}/>
       <p className="text-xl text-center">{flashcard.title}</p>
       <div className="mx-auto">
-        <h3 >Japanese</h3>
-        <textarea id="japanese" value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
-                  className="w-[100%] h-28 border-1 rounded-sm my-3 p-1"
-                  onChange={(e) => handleInputChange(e, "japanese", 255)}
-                  data-testid="edit-card-ja-form"/>
-        <h3 >English</h3>
-        <textarea id="english" value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
-                  className="w-[100%] h-28 border-1 rounded-sm p-1"
-                  onChange={(e) => handleInputChange(e, "english", 255)}
-                  data-testid="edit-card-en-form"/>
+        <h3>Japanese</h3>
+        <div className="mb-3">
+          <TextareaForm value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
+                        onChange={(e) => handleInputChange(e, "japanese", 255)}
+                        id="japanese"
+                        testid="edit-card-ja-form"/>
+        </div>
+        <h3>English</h3>
+        <div className="mb-3">
+          <TextareaForm value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
+                        onChange={(e) => handleInputChange(e, "english", 255)}
+                        id="english"
+                        testid="edit-card-en-form"/>
+        </div>
       </div>
-      <div className="text-right mx-auto pt-2 pb-5">
-        <button className="text-xl"
-                onClick={() => handleDeleteCard()}
-                data-testid="delete-card-btn"><FaRegTrashAlt /></button>
+      <div className="text-right mx-auto pt-2 pb-5 text-xl">
+        <DeleteBtn onClick={() => handleDeleteCard()}/>
       </div>
-      <button
-        className={`text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-5 ${btnDisabledJp || btnDisabledEn ? 'opacity-50': 'opacity-100'}`}
-        onClick={() => handleUpdateCard()}
-        disabled={btnDisabledJp || btnDisabledEn}
-        data-testid="edit-card-submit-btn">更新</button>
+      <MainBtn onClick={() => handleUpdateCard()} disabled={btnDisabledJp || btnDisabledEn} text={"更新"} data-testid="edit-card-submit-btn" testid="edit-card-submit-btn"/>
     </div>
   )
 }

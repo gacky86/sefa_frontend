@@ -69,22 +69,22 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: Flashcard�
     // 学習機能のテスト
   });
 
-  test('FlashCardSettingModalを表示した後、FlashCardDetailModalに戻る', async () => {
+  test('FlashcardSettingModalを表示した後、FlashcardDetailModalに戻る', async () => {
     // 単語帳の編集ボタンをクリックする
     const flashcardEditBtn = screen.getByTestId('flashcard-edit-btn');
     fireEvent.click(flashcardEditBtn);
 
-    // FlashCardSettingModalを表示したことを確認
+    // FlashcardSettingModalを表示したことを確認
     const modalBase = await screen.findByTestId('modal');
     const editFlashcard = await screen.findByTestId('flashcard-edit-modal');
     expect(modalBase).toBeInTheDocument();
     expect(editFlashcard).toBeInTheDocument();
 
-    // FlashCardSettingModal中のcloseボタンをクリックする
+    // FlashcardSettingModal中のcloseボタンをクリックする
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
 
-    // FlashCardSettingModalが非表示になり、FlashCardDetailModalが表示されることを確認
+    // FlashcardSettingModalが非表示になり、FlashcardDetailModalが表示されることを確認
     await waitFor(() => {
       expect(screen.queryByTestId('flashcard-edit-modal')).not.toBeInTheDocument();
       expect(screen.queryByTestId('modal')).toBeInTheDocument();
@@ -108,7 +108,7 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: Flashcard�
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
 
-    // CardsListModalが非表示になり、FlashCardDetailModalが表示されることを確認
+    // CardsListModalが非表示になり、FlashcardDetailModalが表示されることを確認
     await waitFor(() => {
       expect(screen.queryByTestId('cards-list-modal')).not.toBeInTheDocument();
       expect(screen.queryByTestId('modal')).toBeInTheDocument();

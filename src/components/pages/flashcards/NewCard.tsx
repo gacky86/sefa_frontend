@@ -1,12 +1,16 @@
 import { useState } from "react";
 
-import { createCard } from "lib/api/card";
-import { FlashCard, CardParams } from "interfaces/index";
+// components
+import { Flashcard, CardParams } from "interfaces/index";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
+import MainBtn from "components/shared/MainBtn";
+import TextareaForm from "components/shared/TextareaForm";
 
+// api
+import { createCard } from "lib/api/card";
 import { AxiosError } from "axios";
 
-const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
+const NewCard = ({flashcard}:{flashcard:Flashcard}) => {
   const initialCardParams = {
     inputProficiency: 0,
     outputProficiency: 0,
@@ -54,20 +58,21 @@ const NewCard = ({flashcard}:{flashcard:FlashCard}) => {
       <p className="text-xl text-center">{flashcard.title}</p>
       <div className="mx-auto">
         <h3>Japanese</h3>
-        <textarea id="japanese" value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
-                  className="w-[100%] h-28 border-1 rounded-sm my-3 p-1"
-                  onChange={(e) => handleInputChange(e, "japanese", 255)}
-                  data-testid="new-card-ja-form"/>
+        <div className="mb-3">
+          <TextareaForm value={cardParams.japanese} placeholder="日本語の単語・フレーズ"
+                        onChange={(e) => handleInputChange(e, "japanese", 255)}
+                        id="japanese"
+                        testid="new-card-ja-form"/>
+        </div>
         <h3>English</h3>
-        <textarea id="english" value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
-                  className="w-[100%] h-28 border-1 rounded-sm p-1"
-                  onChange={(e) => handleInputChange(e, "english", 255)}
-                  data-testid="new-card-en-form"/>
+        <div className="mb-3">
+          <TextareaForm value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
+                        onChange={(e) => handleInputChange(e, "english", 255)}
+                        id="english"
+                        testid="new-card-en-form"/>
+        </div>
       </div>
-      <button className={`text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue mt-5 ${btnDisabledJp || btnDisabledEn ? 'opacity-50': 'opacity-100'}`}
-              onClick={() => handleCreateCard()}
-              disabled={btnDisabledJp || btnDisabledEn}
-              data-testid="new-card-submit-btn">追加</button>
+      <MainBtn onClick={() => handleCreateCard()} disabled={btnDisabledJp || btnDisabledEn} text="追加" testid="new-card-submit-btn"/>
     </div>
   )
 }

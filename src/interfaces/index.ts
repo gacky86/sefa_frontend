@@ -28,7 +28,7 @@ export interface User {
   allowPasswordChange: boolean
 }
 
-export interface FlashCard {
+export interface Flashcard {
   id: number,
   userId: number,
   title: string,
@@ -38,7 +38,7 @@ export interface FlashCard {
   outputTarget: number
 }
 
-export interface FlashCardParams {
+export interface FlashcardParams {
   title: string,
   description?: string,
   shared: boolean,

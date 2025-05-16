@@ -1,9 +1,9 @@
 import { getCountsTodaysCards } from "lib/api/flashcard";
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 import { useEffect, useState } from "react";
 
 
-const FlashcardTodaysTarget = ({flashcard}: {flashcard: FlashCard}) => {
+const FlashcardTodaysTarget = ({flashcard}: {flashcard: Flashcard}) => {
   const initialTargetCount = {
     inputNewCardsCount: 0,
     inputReviewCardsCount: 0,

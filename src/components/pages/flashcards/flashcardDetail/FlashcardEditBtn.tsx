@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 
-const FlashcardEditBtn = ({flashcard}: {flashcard: FlashCard}) => {
+const FlashcardEditBtn = ({flashcard}: {flashcard: Flashcard}) => {
   const dispatch = useDispatch();
   return (
     <div className="border-t-1 mt-1 py-4 text-center">
