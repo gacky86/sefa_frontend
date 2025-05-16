@@ -1,18 +1,18 @@
 // store/flashcardSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFlashcardList } from 'lib/api/flashcard';
-import { FlashCard } from 'interfaces/index';
+import { Flashcard } from 'interfaces/index';
 
 export const fetchFlashcards = createAsyncThunk(
   'flashcards/fetchFlashcards',
   async () => {
     const response = await getFlashcardList();
-    return response.data as FlashCard[];
+    return response.data as Flashcard[];
   }
 );
 
 interface FlashcardState {
-  flashcards: FlashCard[];
+  flashcards: Flashcard[];
   loading: boolean;
 }
 

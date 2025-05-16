@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SearchMode, dictionaryRes } from "interfaces/index";
 
 // interfaces
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 
 type AIDictionaryState = {
   searchMode: SearchMode,

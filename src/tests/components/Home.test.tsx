@@ -85,8 +85,8 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: トップ�
   });
 
   test('Flashcardリスト表示', () => {
-    // <FlashCardsList>コンポーネントがレンダリングされていることの確認
-    // cardの中身のテストはFlashCardsListのテストに任せる
+    // <FlashcardsList>コンポーネントがレンダリングされていることの確認
+    // cardの中身のテストはFlashcardsListのテストに任せる
     expect(screen.getByTestId('flashcards-list')).toBeInTheDocument();
   });
 
@@ -95,8 +95,8 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: トップ�
   });
 
   test('Flashcard追加モーダルの表示', async () => {
-    const newFlashCardBtn = screen.getByTestId('new-flashcard-btn');
-    fireEvent.click(newFlashCardBtn);
+    const newFlashcardBtn = screen.getByTestId('new-flashcard-btn');
+    fireEvent.click(newFlashcardBtn);
 
     const modalBase = await screen.findByTestId('modal');
     const newFlashcard = await screen.findByTestId('new-flashcard-modal');
@@ -142,11 +142,11 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: トップ�
     const modalBase = await screen.findByTestId('modal');
     const flashcardDetail = await screen.findByTestId('flashcard-detail');
 
-    // FlashCardDetailModalが表示されたことを確認
+    // FlashcardDetailModalが表示されたことを確認
     expect(modalBase).toBeInTheDocument();
     expect(flashcardDetail).toBeInTheDocument();
 
-    // FlashCardSettingModal中のcloseボタンをクリックする
+    // FlashcardSettingModal中のcloseボタンをクリックする
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
 

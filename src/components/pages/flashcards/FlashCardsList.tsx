@@ -1,5 +1,5 @@
 
-import FlashCardCard from "components/pages/flashcards/FlashCardCard";
+import FlashcardCard from "components/pages/flashcards/FlashcardCard";
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { RootState, AppDispatch } from 'store/index';
@@ -16,10 +16,10 @@ const FlashcardsList = () => {
 
 
   return (
-    <div data-testid="flashcards-list" className="mx-auto h-[40vh] w-[90%] overflow-scroll border-1 border-gray-300 rounded-sm">
+    <div data-testid="flashcards-list" className="mx-auto h-[60vh] w-[90%] max-w-[380px] overflow-scroll ">
       {flashcards.map((flashcard, key) => {
         return (
-          <FlashCardCard key={key} flashcard={flashcard}/>
+          <FlashcardCard key={key} flashcard={flashcard}/>
         )
       })}
 

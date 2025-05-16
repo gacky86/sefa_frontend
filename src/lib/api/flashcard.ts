@@ -1,6 +1,6 @@
 // flashcard.ts
 // 役割：HTTPリクエストを定義すること
-import { FlashCard, FlashCardParams } from "interfaces/index";
+import { Flashcard, FlashcardParams } from "interfaces/index";
 
 import client from 'lib/api/client';
 import { getUserAuthHeader } from "lib/api/client";
@@ -8,22 +8,22 @@ import { getUserAuthHeader } from "lib/api/client";
 // 一覧
 export const getFlashcardList = () => {
   const authHeader = getUserAuthHeader();
-  return client.get<FlashCard[]>('/flashcards', {headers: authHeader, params: { only_mine: "onlyMine" }});
+  return client.get<Flashcard[]>('/flashcards', {headers: authHeader, params: { only_mine: "onlyMine" }});
 };
 
 // 詳細
 export const getFlashcardDetail = (id: number) => {
-  return client.get<FlashCard>(`/flashcards/${id}`);
+  return client.get<Flashcard>(`/flashcards/${id}`);
 };
 
 // 新規作成
-export const createFlashcard = (params: FlashCardParams) => {
+export const createFlashcard = (params: FlashcardParams) => {
   const authHeader = getUserAuthHeader();
   return client.post('/flashcards', params, { headers: authHeader });
 };
 
 // 更新
-export const updateFlashcard = (id: number, params: FlashCard) => {
+export const updateFlashcard = (id: number, params: Flashcard) => {
   const authHeader = getUserAuthHeader();
   return client.patch(`/flashcards/${id}`, params, { headers: authHeader });
 };

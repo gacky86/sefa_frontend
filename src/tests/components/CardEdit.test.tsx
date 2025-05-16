@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from "store/authSlice";
 import modalReducer from "store/modalSlice";
-import { User, FlashCard, Card } from "interfaces/index";
+import { User, Flashcard, Card } from "interfaces/index";
 
 // Components
 import Modal from 'components/layouts/Modal';
@@ -32,7 +32,7 @@ const mockUser: User = {
   allowPasswordChange: false
 }
 
-const mockFlashcard: FlashCard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
+const mockFlashcard: Flashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
 const mockCard: Card = { id: 0, flashcardId: 0, inputProficiency: 0, outputProficiency: 0, english: "test0", japanese: "テスト0" }
 const mockCards: Card[] = [
   { id: 0, flashcardId: 0, inputProficiency: 0, outputProficiency: 0, english: "test0", japanese: "テスト0" },

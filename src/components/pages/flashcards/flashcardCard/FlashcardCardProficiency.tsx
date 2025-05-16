@@ -1,11 +1,11 @@
 import FlaschcardProficiencyBar from "components/pages/flashcards/FlaschcardProficiencyBar";
 
 import { getFlashcardProficiency } from "lib/api/flashcard";
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 import { useEffect, useState } from "react";
 
 
-const FlashcardCardProficiency = ({flashcard}: {flashcard: FlashCard}) => {
+const FlashcardCardProficiency = ({flashcard}: {flashcard: Flashcard}) => {
   const initialProficiencies = {
     inputProficiency: '0',
     outputProficiency: '0',

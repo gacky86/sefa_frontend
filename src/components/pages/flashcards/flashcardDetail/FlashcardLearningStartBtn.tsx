@@ -2,12 +2,12 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "store/modalSlice";
 import { startLearning } from "store/fcLearningSlice";
 
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 
 import { useNavigate } from "react-router-dom";
 
 
-const FlashcardLearningStartBtn = ({flashcard}: {flashcard: FlashCard}) => {
+const FlashcardLearningStartBtn = ({flashcard}: {flashcard: Flashcard}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

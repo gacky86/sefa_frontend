@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlashCard, Card } from "interfaces/index";
+import { Flashcard, Card } from "interfaces/index";
 import { getCardList } from "lib/api/card";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
@@ -11,8 +11,10 @@ import { openModal } from "store/modalSlice";
 
 import { AxiosResponse, AxiosError } from "axios";
 
+import AddBtn from "components/shared/AddBtn";
 
-const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
+
+const CardsList = ({flashcard}:{flashcard:Flashcard}) => {
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState<Card[]>([]);
@@ -42,8 +44,8 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
         <table className="w-full text-sm">
           <thead>
             <tr>
-              <th className="sticky top-0 bg-red-100">Japanese</th>
-              <th className="sticky top-0 bg-blue-100">English</th>
+              <th className="sticky top-0 bg-red-100 w-1/2">Japanese</th>
+              <th className="sticky top-0 bg-blue-100 w-1/2">English</th>
             </tr>
           </thead>
           <tbody>
@@ -60,10 +62,8 @@ const CardsList = ({flashcard}:{flashcard:FlashCard}) => {
           </tbody>
         </table>
       </div>
-      <div className="text-right">
-        <button className="text-auqa-blue text-5xl"
-                onClick={() => dispatch(openModal({modalType: 'newCard', modalProps: flashcard}))}
-                data-testid="new-card-modal-btn"><IoIosAddCircle/></button>
+      <div className="text-right text-auqa-blue text-5xl">
+        <AddBtn data-testid="new-card-modal-btn" onClick={() => dispatch(openModal({modalType: 'newCard', modalProps: flashcard}))}/>
       </div>
     </div>
   )

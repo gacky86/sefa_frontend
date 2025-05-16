@@ -168,7 +168,7 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: Flashcard�
   });
   test('closeボタンクリック', async () => {
     // closeボタンをクリックするとトップページに遷移する
-    // NewFlashCardModal中のcloseボタンをクリックする
+    // NewFlashcardModal中のcloseボタンをクリックする
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
 

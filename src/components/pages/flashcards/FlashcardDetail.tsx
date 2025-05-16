@@ -1,5 +1,5 @@
 import { FaLock } from "react-icons/fa";
-import { FlashCard } from "interfaces/index";
+import { Flashcard } from "interfaces/index";
 
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 import FlashcardProficiency from "components/pages/flashcards/flashcardDetail/FlashcardProficiency";
@@ -8,7 +8,7 @@ import FlashcardLearningStartBtn from "components/pages/flashcards/flashcardDeta
 import FlashcardEditBtn from "components/pages/flashcards/flashcardDetail/FlashcardEditBtn";
 
 
-const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
+const FlashcardDetailModal = ({flashcard}:{flashcard:Flashcard}) => {
   return (
     <div className="p-4" data-testid="flashcard-detail">
       <ModalCloseBtn/>
@@ -25,4 +25,4 @@ const FlashCardDetailModal = ({flashcard}:{flashcard:FlashCard}) => {
   )
 };
 
-export default FlashCardDetailModal
+export default FlashcardDetailModal

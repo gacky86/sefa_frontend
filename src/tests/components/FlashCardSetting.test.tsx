@@ -265,7 +265,7 @@ describe('トップページ-単語帳CRUD-カードCRUD基本機能: 単語帳�
     expect(modalBase).toBeInTheDocument();
     expect(deleteFlashcard).toBeInTheDocument();
 
-    // FlashCardSettingModal中のcloseボタンをクリックする
+    // FlashcardSettingModal中のcloseボタンをクリックする
     const modalCloseBtn = screen.getByTestId('close-modal-btn');
     fireEvent.click(modalCloseBtn);
 

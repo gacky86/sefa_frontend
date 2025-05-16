@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "store/index";
 
 // Components
-import NewFlashcard from "components/pages/flashcards/NewFlashCard";
-import FlashcardDetailModal from "components/pages/flashcards/FlashCardDetailModal";
-import FlashcardSettingModal from "components/pages/flashcards/FlashCardSettingModal";
+import NewFlashcard from "components/pages/flashcards/NewFlashcard";
+import FlashcardDetailModal from "components/pages/flashcards/FlashcardDetail";
+import FlashcardSettingModal from "components/pages/flashcards/FlashcardSetting";
 import CardsList from "components/pages/flashcards/CardsList";
 import CardEdit from "components/pages/flashcards/CardEdit";
 import NewCard from "components/pages/flashcards/NewCard";
-import FlashcardDelete from "components/pages/flashcards/FlashCardDelete";
+import FlashcardDelete from "components/pages/flashcards/FlashcardDelete";
 
 const ModalManager = () => {
   const { isVisible, modalType, modalProps } = useSelector((state: RootState) => state.modal);
