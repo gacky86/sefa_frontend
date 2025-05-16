@@ -4,12 +4,17 @@ import './index.css'
 import App from './App.tsx'
 
 import { Provider } from 'react-redux';
-import {store} from "./store/index";
+import {store, persistor} from "./store/index";
+
+import { PersistGate } from 'redux-persist/integration/react';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      {/* redux-persist導入 */}
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )

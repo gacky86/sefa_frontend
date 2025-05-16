@@ -1,5 +1,4 @@
 import FlashcardsList from "components/pages/flashcards/FlashcardsList";
-import { IoIosAddCircle } from "react-icons/io";
 import Modal from "components/layouts/Modal";
 import { useDispatch } from "react-redux";
 import { openModal } from "store/modalSlice";

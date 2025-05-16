@@ -1,10 +1,8 @@
-// なぜかここではbaseUrlが効かないので相対パスでimport
 import client from "lib/api/client"
 import { getUserAuthHeader } from "lib/api/client";
 // import Cookies from "js-cookie"
 
-// なぜかここではbaseUrlが効かないので相対パスでimport
-import { SignUpParams, SignInParams } from "../../interfaces/index"
+import { SignUpParams, SignInParams } from "interfaces/index"
 
 // サインアップ（新規アカウント作成）
 export const signUp = (params: SignUpParams) => {

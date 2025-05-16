@@ -3,7 +3,6 @@ import { Flashcard, Card } from "interfaces/index";
 import { getCardList } from "lib/api/card";
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 
-import { IoIosAddCircle } from "react-icons/io";
 import { MdModeEdit } from "react-icons/md";
 
 import { useDispatch } from "react-redux";
