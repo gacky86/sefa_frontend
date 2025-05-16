@@ -39,9 +39,13 @@ const App: React.FC = () => {
       if (res?.data.isLogin === true) {
         dispatch(setUser(res?.data.data));
         console.log('setUser');
+        console.log(res);
+
 
       } else {
         dispatch(clearUser());
+        console.log(res);
+
         console.log('clearUser');
 
       }
@@ -79,6 +83,9 @@ const App: React.FC = () => {
     <Router>
       <div className='bg-super-light-sky-blue min-h-screen'>
         <CommonLayout>
+          {/* isLoading === falseの間はRoutes以下を表示しない */}
+          {!isLoading ? (
+
           <Routes>
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/signin' element={<SignIn/>}/>
@@ -95,6 +102,9 @@ const App: React.FC = () => {
               <Route path='/ai-dicrionary' element={<AIDictionary/>}/>
             </Route>
           </Routes>
+          ) : (
+            <h2>Loading...</h2>
+          )}
         </CommonLayout>
       </div>
     </Router>
