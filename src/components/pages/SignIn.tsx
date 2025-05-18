@@ -58,8 +58,16 @@ const SignIn: React.FC = () => {
     <div className='mx-auto text-center w-[300px] text-dark-navy-blue'>
       <h1 className='text-2xl mt-8'>ログイン</h1>
       <div className='mt-12'>
-        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5 mb-2" placeholder="メールアドレス" type="text" id="email" name="email" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5" placeholder="パスワード" type="text" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5 mb-2"
+               placeholder="メールアドレス"
+               type="text"
+               id="email" name="email" value={email}
+               onChange={(e) => {setEmail(e.target.value)}}/>
+        <input className="bg-white border-1 border-dark-navy-blue rounded-sm w-[90%] p-0.5"
+               placeholder="パスワード"
+               type="password"
+               id="password" name="password" value={password}
+               onChange={(e) => {setPassword(e.target.value)}}/>
       </div>
       <p className='text-right mt-2.5'>パスワードをお忘れの場合は<Link to="/signup" className='text-auqa-blue cursor-pointer'>こちら</Link></p>
       <button className='text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue my-5' onClick={handleSubmit}>ログイン</button>
