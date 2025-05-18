@@ -1,4 +1,6 @@
-import BookmarkedVideoCard from "components/pages/ytSearchingLearning/BookmarkedVideoCard";
+// import BookmarkedVideoCard from "components/pages/ytSearchingLearning/BookmarkedVideoCard";
+import VideoCard from "components/pages/ytSearchingLearning/VideoCard";
+
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +24,7 @@ const BookmarkedVideosList = () => {
         {bookmarkedVideoList.length > 0 ? (
           bookmarkedVideoList.map((bookmarkedVideo, key) => {
           return (
-            <BookmarkedVideoCard key={key} video={bookmarkedVideo.videoJson} />
+            <VideoCard key={key} video={bookmarkedVideo.videoJson} />
           )
         })
         ) : (
