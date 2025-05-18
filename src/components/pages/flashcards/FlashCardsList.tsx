@@ -17,11 +17,18 @@ const FlashcardsList = () => {
 
   return (
     <div data-testid="flashcards-list" className="mx-auto h-[60vh] w-[90%] max-w-[380px] overflow-scroll ">
-      {flashcards.map((flashcard, key) => {
-        return (
-          <FlashcardCard key={key} flashcard={flashcard}/>
-        )
-      })}
+      {flashcards.length > 0 ? (
+        flashcards.map((flashcard, key) => {
+          return (
+            <FlashcardCard key={key} flashcard={flashcard}/>
+          )
+        })
+      ) : (
+        <>
+          <h3 className="text-center">単語帳がまだありません。</h3>
+          <h3 className="text-center">右下の作成ボタンから単語帳を作成してください。</h3>
+        </>
+      )}
 
     </div>
   )

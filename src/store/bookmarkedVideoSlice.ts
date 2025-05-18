@@ -17,11 +17,11 @@ export const getBookmarkedVideos = createAsyncThunk(
 );
 
 type bookmarkedVideoState = {
-  bookmarkedVideoList: BookmarkVideo[] | null
+  bookmarkedVideoList: BookmarkVideo[]
 }
 
 const initialState: bookmarkedVideoState = {
-  bookmarkedVideoList: null
+  bookmarkedVideoList: []
 }
 
 const bookmarkedVideoSlice = createSlice({
@@ -47,7 +47,7 @@ const bookmarkedVideoSlice = createSlice({
         state.bookmarkedVideoList = action.payload;
       })
       .addCase(getBookmarkedVideos.rejected, (state, action) => {
-        state.bookmarkedVideoList = null;
+        state.bookmarkedVideoList = [];
         console.error('ブックマークリスト取得失敗', action.payload);
       });
   }
