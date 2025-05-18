@@ -85,7 +85,7 @@ const FlashcardSettingModal = ({flashcard}: {flashcard:Flashcard}) => {
 
         <div className="mx-auto w-[80%] border-b-1 pb-2">
           <div className="mt-3 mb-2">
-            <InputForm value={flashcardParams.title} placeholder="単語帳のタイトル"
+            <InputForm value={flashcardParams.title} placeholder="単語帳のタイトル" id="title"
                       onChange={(e) => handleInputChange(e, 'title', 60)}
                       testid="flashcard-title-form"/>
           </div>
