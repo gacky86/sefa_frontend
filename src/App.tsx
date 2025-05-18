@@ -15,6 +15,7 @@ import AIDictionary from "components/pages/AIDictionary";
 import CommonLayout from "components/layouts/CommonLayout";
 import TermsOfService from "components/pages/others/TermsOfService";
 import PrivacyPolicy from "components/pages/others/PrivacyPolicy";
+import LocationWatcher from "components/layouts/LocationWatcher";
 
 
 import { getCurrentUser } from "./lib/api/auth";
@@ -24,8 +25,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser, setLoading } from 'store/authSlice';
 import { RootState } from 'store/index';
 
+
 const App: React.FC = () => {
   const dispatch = useDispatch();
+
 
   // 認証済みのユーザーがいるかどうかチェック
   // 確認できた場合はそのユーザーの情報を取得
@@ -33,33 +36,21 @@ const App: React.FC = () => {
     console.log('1 handleGetCurrentUser');
     dispatch(setLoading(true));
     try {
-
       const res = await getCurrentUser()
-      console.log(res);
       if (res?.data.isLogin === true) {
         dispatch(setUser(res?.data.data));
-        console.log('setUser');
-        console.log(res);
-
-
       } else {
         dispatch(clearUser());
-        console.log(res);
-
-        console.log('clearUser');
-
       }
     } catch (err) {
       dispatch(clearUser());
     }
   }
 
+  // ユーザー認証情報取得のためのuseEffect
   useEffect(() => {
-    console.log('useEffect');
-
     handleGetCurrentUser()
   }, [])
-
 
   // ユーザーが認証済みかどうかでルーティングを決定
   // 未認証だった場合は「/signin」ページに促す
@@ -83,9 +74,9 @@ const App: React.FC = () => {
     <Router>
       <div className='bg-super-light-sky-blue min-h-screen'>
         <CommonLayout>
+          <LocationWatcher/>
           {/* isLoading === falseの間はRoutes以下を表示しない */}
           {!isLoading ? (
-
           <Routes>
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/signin' element={<SignIn/>}/>
