@@ -1,6 +1,4 @@
 import client from "lib/api/client"
-import { getUserAuthHeader } from "lib/api/client";
-// import Cookies from "js-cookie"
 
 import { SignUpParams, SignInParams } from "interfaces/index"
 
@@ -16,14 +14,12 @@ export const signIn = (params: SignInParams)  => {
 
 // サインアウト（ログアウト）
 export const signOut = () => {
-  const authHeader = getUserAuthHeader();
-  return client.delete("auth/sign_out", { headers: authHeader })
+  return client.delete("auth/sign_out")
 }
 
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
-  const authHeader = getUserAuthHeader();
 
-  if (!authHeader) return
-  return client.get("/auth/sessions", { headers: authHeader })
+  // if (!authHeader) return
+  return client.get("/auth/sessions")
 }

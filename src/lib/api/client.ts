@@ -13,10 +13,23 @@ const options = {
 
 const client = applyCaseMiddleware(axios.create({
   baseURL: "http://localhost:3000/api/v1",
-}), options)
+}), options);
+
+// インターセプター(リクエストを送る直前に処理を割り込み)
+client.interceptors.request.use((config) => {
+  const authHeader = getUserAuthHeader();
+  if (authHeader) {
+    config.headers['access-token'] = authHeader["access-token"];
+    config.headers['client'] = authHeader["client"];
+    config.headers['uid'] = authHeader["uid"];
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 
 // 認証情報をheaderに追加するためのヘルパー関数
-export const getUserAuthHeader = () => {
+const getUserAuthHeader = () => {
   if (!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return
   return {
     "access-token": Cookies.get("_access_token"),
