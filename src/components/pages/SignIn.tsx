@@ -72,12 +72,12 @@ const SignIn: React.FC = () => {
       <p className='text-right mt-2.5'>パスワードをお忘れの場合は<Link to="/signup" className='text-auqa-blue cursor-pointer'>こちら</Link></p>
       <button className='text-base text-white bg-auqa-blue px-3 py-1 rounded-sm border-1 border-dark-navy-blue my-5' onClick={handleSubmit}>ログイン</button>
 
-      <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
+      {/* <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
       <div className='mt-16 mb-20'>
         <button className='mx-auto p-2 flex bg-white border-1 border-dark-navy-blue rounded-full text-sm text-gray-800'>
           <FcGoogle className='text-2xl'/><p className='pt-0.5 pl-0.5'>Googleアカウントでログイン</p>
         </button>
-      </div>
+      </div> */}
       <div className='text-base'>
         <p>アカウントをお持ちでない方は
           <Link to="/introduction" className='text-auqa-blue cursor-pointer'>新規登録</Link>

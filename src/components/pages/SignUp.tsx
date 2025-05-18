@@ -119,12 +119,12 @@ const SignUp: React.FC = () => {
         )}
         <MainBtn onClick={() => handleSubmit()} text='登録'/>
 
-        <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
+        {/* <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
         <div className='mt-16 mb-20'>
           <button className='mx-auto p-2 flex bg-white border-1 border-dark-navy-blue rounded-full text-sm text-gray-800'>
             <FcGoogle className='text-2xl'/><p className='pt-0.5 pl-0.5'>Googleアカウントで登録</p>
           </button>
-        </div>
+        </div> */}
         <div className='text-base font-medium mb-5'>
           <p>アカウントをお持ちの方は
             <Link to="/signin" className='text-auqa-blue cursor-pointer'>こちら</Link>
