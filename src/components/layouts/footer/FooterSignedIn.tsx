@@ -20,7 +20,7 @@ const FooterSignedIn = () => {
   return (
     <div className='flex justify-between mx-auto max-w-[450px]'>
       {/* Youtube機能 */}
-      <Link to="/yt-learning">
+      <Link to="/yt-searching">
         <FaYoutube className='text-red-500 text-[30px] mx-auto'/>
         <h6 className="text-xs text-center text-gray-500">Youtube</h6>
       </Link>
