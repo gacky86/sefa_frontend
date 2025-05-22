@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store/index";
 
 // Components
-import NewFlashcard from "components/pages/flashcards/NewFlashcard";
+import NewFlashcard from "components/pages/flashcards/NewFlashcard"
 import FlashcardDetailModal from "components/pages/flashcards/FlashcardDetail";
 import FlashcardSettingModal from "components/pages/flashcards/FlashcardSetting";
 import CardsList from "components/pages/flashcards/CardsList";
