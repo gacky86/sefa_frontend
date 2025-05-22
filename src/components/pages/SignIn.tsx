@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setUser, setLoading } from "store/authSlice";
 
 // icons
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 
 
 
