@@ -12,7 +12,7 @@ const options = {
 }
 
 const client = applyCaseMiddleware(axios.create({
-  baseURL: "http://api.sefa.tokyo/api/v1",
+  baseURL: "https://api.sefa-ai.com/api/v1",
   // baseURL: "http://localhost:3000/api/v1",
 }), options);
 
