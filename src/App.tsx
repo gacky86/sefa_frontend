@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useEffect } from 'react';
+
 // components
 import SignUp from "components/pages/SignUp";
 import SignIn from "components/pages/SignIn";
@@ -11,29 +12,24 @@ import FCLearning from "components/pages/FCLearning";
 import YTLearning from "components/pages/YTLearning";
 import YTSearching from "components/pages/YTSearching";
 import AIDictionary from "components/pages/AIDictionary";
-
 import CommonLayout from "components/layouts/CommonLayout";
 import TermsOfService from "components/pages/others/TermsOfService";
 import PrivacyPolicy from "components/pages/others/PrivacyPolicy";
 import LocationWatcher from "components/layouts/LocationWatcher";
 
-
-import { getCurrentUser } from "./lib/api/auth";
-
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser, clearUser, setLoading } from 'store/authSlice';
 import { RootState } from 'store/index';
+import { setLoading, setUser, clearUser } from "store/authSlice";
+
+// api
+import {getCurrentUser} from 'lib/api/auth'
 
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
 
-
-  // 認証済みのユーザーがいるかどうかチェック
-  // 確認できた場合はそのユーザーの情報を取得
   const handleGetCurrentUser = async () => {
-    console.log('1 handleGetCurrentUser');
     dispatch(setLoading(true));
     try {
       const res = await getCurrentUser()

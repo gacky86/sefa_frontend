@@ -4,18 +4,21 @@ import { Link } from "react-router-dom";
 // icons
 import { FaYoutube } from "react-icons/fa";
 import { FcSearch } from "react-icons/fc";
-// import { SiWikibooks } from "react-icons/si";
 import { SlNotebook } from "react-icons/sl";
 
 import { FaCircleUser } from "react-icons/fa6";
-import { useState } from 'react';
 
 // components
 import AccountModal from "components/layouts/AccountModal";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { toggleAccountModal } from "store/accountModalSlice";
+
 const FooterSignedIn = () => {
-  // アカウントボタンクリック時のスモールモーダルの表示非表示を管理するstate
-  const [hideModal, setHideModal] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const { isVisible } = useSelector((state: RootState) => state.accountModal);
 
   return (
     <div className='flex justify-between mx-auto max-w-[450px]'>
@@ -36,8 +39,8 @@ const FooterSignedIn = () => {
       </Link>
       {/* アカウント関連 */}
       <div>
-        <FaCircleUser className='text-[30px] mx-auto' onClick={() => setHideModal(!hideModal)}/>
-          {!hideModal && <AccountModal setHideModal={setHideModal}/>}
+        <FaCircleUser className='text-[30px] mx-auto' onClick={() => dispatch(toggleAccountModal())}/>
+          {isVisible && <AccountModal/>}
         <h6 className="text-xs text-center text-gray-500">アカウント</h6>
       </div>
 

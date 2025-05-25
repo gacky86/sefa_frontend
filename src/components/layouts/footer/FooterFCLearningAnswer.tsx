@@ -1,6 +1,11 @@
+// components
+import FooterSignedIn from "components/layouts/footer/FooterSignedIn";
 import FCLearningDifficultyBtn from "components/layouts/footer/FCLearningDifficultyBtn";
+
+// react
 import { useEffect, useState } from "react";
 
+// api
 import { getReviewInterval } from "lib/api/card";
 
 // Redux
@@ -44,14 +49,18 @@ const FooterFCLearningAnswer = () => {
   }, []);
 
 
-  return (
-    <div className="w-[300px] mx-auto grid grid-cols-4 grid-rows-1 gap-1">
-      <FCLearningDifficultyBtn difficulty="Again" reviewInterval={reviewIntervals.againInterval}/>
-      <FCLearningDifficultyBtn difficulty="Hard" reviewInterval={reviewIntervals.hardInterval}/>
-      <FCLearningDifficultyBtn difficulty="Good" reviewInterval={reviewIntervals.goodInterval}/>
-      <FCLearningDifficultyBtn difficulty="Easy" reviewInterval={reviewIntervals.easyInterval}/>
-    </div>
-  )
+  if(card) {
+    return (
+      <div className="w-[300px] mx-auto grid grid-cols-4 grid-rows-1 gap-1">
+        <FCLearningDifficultyBtn difficulty="Again" reviewInterval={reviewIntervals.againInterval}/>
+        <FCLearningDifficultyBtn difficulty="Hard" reviewInterval={reviewIntervals.hardInterval}/>
+        <FCLearningDifficultyBtn difficulty="Good" reviewInterval={reviewIntervals.goodInterval}/>
+        <FCLearningDifficultyBtn difficulty="Easy" reviewInterval={reviewIntervals.easyInterval}/>
+      </div>
+    )
+  } else {
+    return <FooterSignedIn />
+  }
 }
 
 export default FooterFCLearningAnswer

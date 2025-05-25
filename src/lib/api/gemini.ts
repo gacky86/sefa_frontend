@@ -2,8 +2,9 @@ import axios from "axios"
 import { SearchMode, CardQA, dictionaryRes } from "interfaces/index";
 
 const generateSentence = async (systemInstruction: string, text: string) => {
-
-  return axios.post('https://api.sefa-ai.com/api/gemini/generate_sentence',{
+  // http://localhost:3000/api/
+  // https://api.sefa-ai.com/api/gemini/generate_sentence
+  return axios.post('http://localhost:3000/api/gemini/generate_sentence',{
     system_instruction: systemInstruction,
     text: text},
     { headers: {"Content-Type": "application/json"}}
