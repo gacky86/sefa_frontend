@@ -29,6 +29,26 @@ client.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+client.interceptors.response.use(
+  (response) => {
+    // 成功時はそのまま返す
+    return response;
+  },
+  (error) => {
+    const status = error.response?.status;
+
+    if (status === 401 || status === 403) {
+      window.location.href = "/unauthorized";
+    } else if (status === 404) {
+      window.location.href = "/not-found";
+    } else if (status >= 500) {
+      window.location.href = "/server-error";
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 // 認証情報をheaderに追加するためのヘルパー関数
 const getUserAuthHeader = () => {
   if (!Cookies.get("_access_token") || !Cookies.get("_client") || !Cookies.get("_uid")) return
