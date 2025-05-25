@@ -16,6 +16,10 @@ import CommonLayout from "components/layouts/CommonLayout";
 import TermsOfService from "components/pages/others/TermsOfService";
 import PrivacyPolicy from "components/pages/others/PrivacyPolicy";
 import LocationWatcher from "components/layouts/LocationWatcher";
+import NotFoundError from "components/pages/errors/NotFoundError";
+import ServerError from "components/pages/errors/ServerError";
+import UnauthorizedError from "components/pages/errors/UnauthorizedError";
+
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -79,6 +83,9 @@ const App: React.FC = () => {
             <Route path='/introduction' element={<Introduction/>}/>
             <Route path='/terms-of-service' element={<TermsOfService/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
+            <Route path='/unauthorized' element={<UnauthorizedError/>}/>
+            <Route path='/not-found' element={<NotFoundError/>}/>
+            <Route path='/server-error' element={<ServerError/>}/>
             <Route element={<Private/>}>
               <Route path='/' element={<Home/>}/>
               <Route path='/setting' element={<Setting/>}/>
@@ -88,6 +95,8 @@ const App: React.FC = () => {
               <Route path='/yt-learning' element={<YTLearning/>}/>
               <Route path='/ai-dicrionary' element={<AIDictionary/>}/>
             </Route>
+            {/* 上記以外の存在しないルートを入力した場合 */}
+            <Route path="*" element={<NotFoundError />} />
           </Routes>
           ) : (
             <h2>Loading...</h2>
