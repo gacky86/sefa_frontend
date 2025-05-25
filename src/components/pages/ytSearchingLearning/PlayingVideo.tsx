@@ -1,8 +1,16 @@
+// react
+import { useEffect, useState } from "react";
+
+// redux
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import VideoBookmarkBtn from "components/pages/ytSearchingLearning/VideoBookmarkBtn";
+
+// api
 import { fetchChannelThumbnail } from "lib/api/youtube";
-import { useEffect, useState } from "react";
+
+// components
+import VideoBookmarkBtn from "components/pages/ytSearchingLearning/VideoBookmarkBtn";
+import AIDictionary from "components/pages/AIDictionary";
 
 const PlayingVideo = () => {
   const { video } = useSelector((state:RootState) => state.ytLearning);
@@ -65,9 +73,10 @@ const PlayingVideo = () => {
             <h4 className="mx-3 text-end text-sm pt-3">{video.snippet.channelTitle}</h4>
             <img className='rounded-full h-[32px] w-[32px] mt-2' src={channelThumbnail} />
           </div>
+          <AIDictionary/>
         </>
       ) : (
-        <div>動画が見つかりませんでした</div>
+        <div className="mx-auto text-center">動画が見つかりませんでした</div>
       )}
     </div>
   )

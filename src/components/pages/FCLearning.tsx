@@ -1,7 +1,9 @@
+// components
 import Answer from "components/pages/fclearning/Answer";
 import Question from "components/pages/fclearning/Question";
 import FCListBtn from "components/pages/fclearning/FCListBtn";
 import CardEditBtn from "components/pages/fclearning/CardEditBtn";
+import PageTitle from "components/shared/PageTitle";
 
 // api
 import { generateCardQAByGemini } from "lib/api/gemini";
@@ -46,13 +48,13 @@ const FCLearning = () => {
   return (
     <div className="text-center mx-auto">
       {/* モード名 */}
-      <h2 className="text-dark-navy-blue text-xl font-extralight mt-3">{learningMode}モード</h2>
+      {learningMode && <PageTitle title={`${learningMode}モード`}/>}
 
       {/* 問題文 AIとの通信はこのコンポーネントで行い、得られた問題文をQuestionコンポーネントに渡す。 */}
       {card ? (
         <Question question={cardQA.question}/>
       ) : (
-        <p className="my-3">本日学習するカードはありません。お疲れ様でした！</p>
+        <p className="my-10">本日学習するカードはありません。お疲れ様でした！</p>
       )}
 
       {card ? (

@@ -16,7 +16,7 @@ const FlashcardsList = () => {
 
 
   return (
-    <div data-testid="flashcards-list" className="mx-auto h-[60vh] w-[90%] max-w-[380px] overflow-scroll ">
+    <div data-testid="flashcards-list" className="mx-auto w-[90%] max-w-[380px] ">
       {flashcards.length > 0 ? (
         flashcards.map((flashcard, key) => {
           return (

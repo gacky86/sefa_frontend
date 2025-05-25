@@ -13,10 +13,11 @@ const Header = () => {
 
   return (
     <div className="h-[50px] bg-white border-b-1 border-gray-300 flex justify-between w-screen fixed top-0 z-50">
-      <div>
+      <div className="flex items-center">
         <Link to="/">
           <Logo className="w-[50px] h-[50px]"/>
         </Link>
+        <h1 className="ml-3 text-sm text-dark-navy-blue"><span className="italic">β </span>版</h1>
       </div>
       {isSignedIn ? (
         <TodaysLearningCount />

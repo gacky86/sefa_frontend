@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { clearUser } from 'store/authSlice';
 import { closeModal } from 'store/modalSlice';
 import { useDispatch } from 'react-redux';
+import { closeAccountModal } from "store/accountModalSlice";
 
-
-const AccountModal = ({setHideModal}: {setHideModal: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const AccountModal = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    setHideModal(true);
+    dispatch(closeAccountModal());
     dispatch(closeModal());
     dispatch(clearUser());
   }
@@ -17,10 +17,10 @@ const AccountModal = ({setHideModal}: {setHideModal: React.Dispatch<React.SetSta
                   border-dark-navy-blue rounded-sm p-3 text-center text-dark-navy-blue font-medium">
       <h3 onClick={() => handleLogout()}>ログアウト</h3>
       <div className="mt-3">
-        <Link to="/setting" onClick={() => setHideModal(true)}>設定</Link>
+        <Link to="/setting">設定</Link>
       </div>
       <div className="mt-3">
-        <Link to="/account" onClick={() => setHideModal(true)}>アカウント</Link>
+        <Link to="/account">アカウント</Link>
       </div>
 
     </div>

@@ -13,7 +13,7 @@ const JPtoENResultCard = ({id, data}: {id:number, data: dictionaryRes}) => {
 
   return (
     <div className="grid grid-cols-8 grid-rows-2 border-1 border-gray-400 rounded-sm mx-auto w-[90%] mb-2 relative">
-      <div className="row-span-2 pl-2 mt-2"><Checkbox checked={data.checked} setChecked={setChecked}/></div>
+      <div className="row-span-2 pl-2 mt-2 text-2xl"><Checkbox checked={data.checked} setChecked={setChecked}/></div>
       <div className="col-span-7 row-span-2 mr-1">
         <h4 className="border-b-1 border-gray-400">{data.wordOrPhrase}</h4>
         <div className="border-b-1 border-gray-400">

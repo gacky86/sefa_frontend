@@ -30,6 +30,7 @@ import storage from 'redux-persist/lib/storage'; // default: localStorage for we
 
 // reducers
 import modalReducer from './modalSlice';
+import accountModalReducer from './accountModalSlice';
 import authReducer from './authSlice';
 import flashcardReducer from './flashcardsSlice';
 import fcLearningReducer from './fcLearningSlice';
@@ -40,6 +41,7 @@ import aiDictionaryReducer from './aiDictionarySlice';
 // すべての reducer を結合
 const rootReducer = combineReducers({
   modal: modalReducer,
+  accountModal: accountModalReducer,
   auth: authReducer,
   flashcards: flashcardReducer,
   fcLearning: fcLearningReducer,
