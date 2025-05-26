@@ -15,7 +15,7 @@ const Home = () => {
     //
     <div className="mx-auto font-sans text-dark-navy-blue">
       <PageTitle title='単語帳一覧'/>
-      <div className="fixed bottom-[64px] right-[20px] text-auqa-blue text-5xl">
+      <div className="fixed bottom-[64px] right-[20px] text-auqa-blue text-5xl text-center">
         <AddBtn data-testid="new-flashcard-btn" onClick={() => dispatch(openModal({modalType: 'newFlashcard'}))}/>
       </div>
       <div className="mt-[24px]">

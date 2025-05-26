@@ -117,7 +117,9 @@ const SignUp: React.FC = () => {
             <p className='text-left text-xs pl-4 font-light text-red-500'>未入力の項目があります。ご確認ください。</p>
           </div>
         )}
-        <MainBtn onClick={() => handleSubmit()} text='登録'/>
+        <div className='mt-5'>
+          <MainBtn onClick={() => handleSubmit()} text='登録'/>
+        </div>
 
         {/* <p className='text-base border-t-1 leading-[0px] mt-8'><span className='bg-super-light-sky-blue px-4'>または</span></p>
         <div className='mt-16 mb-20'>

@@ -113,8 +113,9 @@ const FlashcardSettingModal = ({flashcard}: {flashcard:Flashcard}) => {
         <div className="text-right w-[80%] mx-auto pt-2 pb-5 text-xl">
           <DeleteBtn onClick={() => dispatch(openModal({modalType:'flashcardDelete', modalProps: flashcard}))}/>
         </div>
-
-        <MainBtn onClick={() => handleUpdateFlashcard()} disabled={btnDisabled} text="更新" testid="update-flashcard-submit-btn"/>
+        <div className='mt-5'>
+          <MainBtn onClick={() => handleUpdateFlashcard()} disabled={btnDisabled} text="更新" testid="update-flashcard-submit-btn"/>
+        </div>
 
       </div>
     </div>

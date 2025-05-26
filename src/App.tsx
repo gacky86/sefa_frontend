@@ -63,7 +63,7 @@ const App: React.FC = () => {
       if (isSignedIn) {
         return <Outlet/>
       } else {
-        return <Navigate to="/signin" />
+        return <Navigate to="/introduction" />
       }
     } else {
       return <></>
