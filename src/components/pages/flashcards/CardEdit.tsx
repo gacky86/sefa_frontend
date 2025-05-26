@@ -87,7 +87,9 @@ const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
       <div className="text-right mx-auto pt-2 pb-5 text-xl">
         <DeleteBtn onClick={() => handleDeleteCard()}/>
       </div>
-      <MainBtn onClick={() => handleUpdateCard()} disabled={btnDisabledJp || btnDisabledEn} text={"更新"} data-testid="edit-card-submit-btn" testid="edit-card-submit-btn"/>
+      <div className='mt-5'>
+        <MainBtn onClick={() => handleUpdateCard()} disabled={btnDisabledJp || btnDisabledEn} text={"更新"} data-testid="edit-card-submit-btn" testid="edit-card-submit-btn"/>
+      </div>
     </div>
   )
 }

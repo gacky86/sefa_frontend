@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
       </div> */}
       <div className='text-base'>
         <p>アカウントをお持ちでない方は
-          <Link to="/introduction" className='text-auqa-blue cursor-pointer'>新規登録</Link>
+          <Link to="/signup" className='text-auqa-blue cursor-pointer'>新規登録</Link>
         </p>
       </div>
     </div>

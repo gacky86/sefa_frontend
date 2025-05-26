@@ -82,7 +82,9 @@ const NewFlashcard = () => {
                           testid="flashcard-description-form"/>
           </div>
         </div>
-        <MainBtn onClick={() => handleCreateFlashcard()} disabled={btnDisabled} text="新規作成" testid="new-flashcard-submit-btn"/>
+        <div className='mt-5'>
+          <MainBtn onClick={() => handleCreateFlashcard()} disabled={btnDisabled} text="新規作成" testid="new-flashcard-submit-btn"/>
+        </div>
       </div>
     </div>
   )
