@@ -14,7 +14,7 @@ const Modal = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="w-full h-full bg-black/70 absolute top-0 left-0" data-testid="modal" onClick={() => dispatch(closeModal())}>
+    <div className="w-full h-screen bg-black/70 fixed top-0 left-0" data-testid="modal" onClick={() => dispatch(closeModal())}>
       <div className="mx-auto my-30 bg-white w-[300px] min-h-[300px] max-h-[550px] rounded-sm relative" onClick={(e) => e.stopPropagation()}>
         <div className="p-3">
           <ModalManager />

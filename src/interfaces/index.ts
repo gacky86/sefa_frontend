@@ -35,7 +35,9 @@ export interface Flashcard {
   description?: string,
   shared: boolean,
   inputTarget: number,
-  outputTarget: number
+  outputTarget: number,
+  language: string,
+  level: string
 }
 
 export interface FlashcardParams {
@@ -43,7 +45,9 @@ export interface FlashcardParams {
   description?: string,
   shared: boolean,
   inputTarget: number,
-  outputTarget: number
+  outputTarget: number,
+  language: string,
+  level: string
 }
 
 export interface Card {
@@ -125,3 +129,10 @@ export type dictionaryRes = {
   checked: boolean;
   registered: boolean;
 }
+
+export type checkLangRes = {
+  existance: boolean;
+}
+
+
+// export type Language = '英語'| 'ドイツ語'| 'フランス語'| 'ポルトガル語'| 'スペイン語'| 'オランダ語'| 'イタリア語'| 'トルコ語'| '韓国語'| '中国語'| 'ロシア語'

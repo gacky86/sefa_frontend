@@ -5,14 +5,16 @@ type AIDictionaryState = {
   searchMode: SearchMode,
   response: dictionaryRes[] | null,
   keyword: string,
-  selectedFlashcardId: number | null
+  selectedFlashcardId: number | null,
+  language: string
 }
 
 const initialState: AIDictionaryState = {
   searchMode: 'JPtoEN',
   response: null,
   keyword: '',
-  selectedFlashcardId: null
+  selectedFlashcardId: null,
+  language: '英語'
 }
 
 const aiDictionarySlice = createSlice({
@@ -36,10 +38,15 @@ const aiDictionarySlice = createSlice({
       }
     },
     setFlashcardId: (state, action) => {
-      state.selectedFlashcardId = action.payload;
+      state.selectedFlashcardId = Number(action.payload);
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
+      state.response = null;
+      state.keyword = '';
     }
   }
 });
 
-export const { setResponse, setKeyword, switchSearchMode, updateData, setFlashcardId } = aiDictionarySlice.actions;
+export const { setResponse, setKeyword, switchSearchMode, updateData, setFlashcardId, setLanguage } = aiDictionarySlice.actions;
 export default aiDictionarySlice.reducer;

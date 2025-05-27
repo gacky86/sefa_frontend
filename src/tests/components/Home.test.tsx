@@ -34,8 +34,8 @@ const mockUser: User = {
 }
 
 const mockFlashcards = [
-  { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50},
-  { id: 1, userId: 0, title: "Programming", description: "", shared: true, inputTarget: 50, outputTarget: 50},
+  { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50, language: '英語', level: 'CEFR B1'},
+  { id: 1, userId: 0, title: "Programming", description: "", shared: true, inputTarget: 50, outputTarget: 50, language: '英語', level: 'CEFR B1'},
 ];
 
 const renderWithProviders = (ui: React.ReactElement) => {

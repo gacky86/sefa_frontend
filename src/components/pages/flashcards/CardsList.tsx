@@ -12,6 +12,9 @@ import { AxiosResponse, AxiosError } from "axios";
 
 import AddBtn from "components/shared/AddBtn";
 
+// utils
+import { getLanguageName } from "utils/langNameMapper";
+
 
 const CardsList = ({flashcard}:{flashcard:Flashcard}) => {
   const dispatch = useDispatch();
@@ -44,7 +47,7 @@ const CardsList = ({flashcard}:{flashcard:Flashcard}) => {
           <thead>
             <tr>
               <th className="sticky top-0 bg-red-100 w-1/2">Japanese</th>
-              <th className="sticky top-0 bg-blue-100 w-1/2">English</th>
+              <th className="sticky top-0 bg-blue-100 w-1/2">{getLanguageName(flashcard.language)}</th>
             </tr>
           </thead>
           <tbody>

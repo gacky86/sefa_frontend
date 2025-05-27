@@ -32,7 +32,7 @@ const mockUser: User = {
   allowPasswordChange: false
 }
 
-const mockFlashcard: Flashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50}
+const mockFlashcard: Flashcard = { id: 0, userId: 0, title: "Daily conversation", description: "", shared: false, inputTarget: 50, outputTarget: 50, language: '英語', level: 'CEFR B1'}
 const mockCard: Card = { id: 0, flashcardId: 0, inputProficiency: 0, outputProficiency: 0, english: "test0", japanese: "テスト0" }
 const mockCards: Card[] = [
   { id: 0, flashcardId: 0, inputProficiency: 0, outputProficiency: 0, english: "test0", japanese: "テスト0" },

@@ -1,29 +1,43 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react";
 
-import { useEffect } from "react";
+// redux
+import { useDispatch, useSelector } from "react-redux"
 import { RootState, AppDispatch } from 'store/index';
 import { fetchFlashcards } from "store/flashcardsSlice";
 import { setFlashcardId, updateData } from "store/aiDictionarySlice";
+import { openModal } from "store/modalSlice";
 
 // api
 import { createCard } from "lib/api/card";
 
 // interfaces
-import {CardParams} from 'interfaces/index'
+import {CardParams, Flashcard} from 'interfaces/index'
+
+// components
+import MainBtn from "components/shared/MainBtn";
+import Modal from "components/layouts/Modal";
 
 const FlashcardRegisterForm = () => {
-  const { response, selectedFlashcardId, searchMode, keyword } = useSelector((state:RootState) => state.aiDictionary);
+  const { response, selectedFlashcardId, searchMode, keyword, language } = useSelector((state:RootState) => state.aiDictionary);
 
   const dispatch = useDispatch<AppDispatch>();
   const flashcards = useSelector((state: RootState) => state.flashcards.flashcards);
 
+  const [ languageFlashcards, setLanguageFlashcards ] = useState<Flashcard[]>([]);
+
+  // flashcardsSliceのflashcardsをデータベースから取得する
   useEffect(() => {
     dispatch(fetchFlashcards());
-  }, [dispatch]);
+  }, []);
 
+  // flashcardsSliceのflashcardsが更新されたら、最初のflashcardsがselectされる
+  // flashcardsSliceのflashcardsの中から、languageが一致するものだけをここで抽出する->slectのoptionに表示
+  // aiDictionarySliceのlanguageが更新されたら、flashcardsも選び直す
   useEffect(() => {
-    dispatch(setFlashcardId(flashcards[0].id));
-  }, [flashcards]);
+    const filteredFlashcards = flashcards.filter((flashcard) => flashcard.language === language);
+    setLanguageFlashcards(filteredFlashcards);
+    languageFlashcards.length > 0 && dispatch(setFlashcardId(languageFlashcards[0].id));
+  }, [flashcards, language]);
 
   const handleRegisterWords = () => {
     // storeのresponseを取得(Selectorで監視)
@@ -60,19 +74,29 @@ const FlashcardRegisterForm = () => {
 
   return (
     <div className="mt-5 mb-5 w-[90%] mx-auto">
-      <h3 className="text-base font-medium mb-2">選択した単語表現を</h3>
-      <div className="flex gap-2 justify-between">
-        <select name="fc-selector" className="bg-white border-1 border-dark-navy-blue rounded-sm w-[70%]"
-                onChange={(e) => dispatch(setFlashcardId(e.target.value))}>
-          {/* valueは送信する値 */}
-          {/* 表示する値はタグの間のやつ */}
-          {flashcards.map((flashcard, key) => {
-            return <option value={flashcard.id} key={key}>{flashcard.title}</option>
-          })}
-        </select>
-        <p>へ</p>
-        <button className="border-1 border-dark-navy-blue rounded-sm px-1 bg-gray-200 font-medium"
-                onClick={() => handleRegisterWords()}>追加</button>
+      {languageFlashcards.length > 0 ? (
+        <>
+        <h3 className="text-base font-medium mb-2">選択した単語表現を</h3>
+        <div className="flex gap-2 justify-between">
+          <select name="fc-selector" className="bg-white border-1 border-dark-navy-blue rounded-sm w-[70%]"
+                  onChange={(e) => dispatch(setFlashcardId(e.target.value))}>
+            {/* flashcardsの中から、languageが一致するものだけを抽出して選択肢 */}
+            {/* 一致するものがない場合は、このフォームの代わりに、「言語が一致する単語帳がありません」とメッセージを表示する */}
+            {languageFlashcards.map((flashcard, key) => {
+              return <option value={flashcard.id} key={key}>{flashcard.title}</option>
+            })}
+          </select>
+          <p>へ</p>
+          <button className="border-1 border-dark-navy-blue rounded-sm px-1 bg-gray-200 font-medium"
+                  onClick={() => handleRegisterWords()}>追加</button>
+        </div>
+        </>
+      ) : (
+        <h3 className="text-base font-medium mb-2">言語設定が一致する単語帳が見つかりません</h3>
+      )}
+      <div className="mt-3 text-center">
+        <MainBtn onClick={() => dispatch(openModal({modalType: 'newFlashcard'}))} text="単語帳を新規作成"/>
+        <Modal />
       </div>
     </div>
   )

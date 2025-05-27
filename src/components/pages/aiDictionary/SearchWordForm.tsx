@@ -6,20 +6,24 @@ import { setResponse, setKeyword } from "store/aiDictionarySlice";
 // api
 import { searchWordByGemini } from "lib/api/gemini";
 
+// interfaces
 import { SearchMode } from "interfaces/index";
 
+// utils
+import { placeholderGenerator } from "utils/placeholderGenerator";
+
 const SearchWordForm = () => {
-  const { searchMode, keyword } = useSelector((state:RootState) => state.aiDictionary);
+  const { searchMode, keyword, language } = useSelector((state:RootState) => state.aiDictionary);
   const dispatch = useDispatch();
 
   // gemini APIにリクエスト送信、responceを取得
   const handleSearchWordByGemini = async () => {
-    const res = await searchWordByGemini(keyword, searchMode);
+    const res = await searchWordByGemini(keyword, searchMode, language);
     dispatch(setResponse(res));
   }
 
   const placeholderMap: Record<SearchMode, string> = {
-    ENtoJP: "Enter English word or phrases...",
+    ENtoJP: placeholderGenerator(language),
     JPtoEN: "知りたい単語・表現を入力...",
   };
 
