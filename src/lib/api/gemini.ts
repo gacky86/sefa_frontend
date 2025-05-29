@@ -53,10 +53,13 @@ export const searchWordByGemini = async (
   let systemInstruction = "";
   switch (mode) {
     case 'JPtoEN':
+      console.log("JPtoEN");
+
       systemInstruction = `次の日本語の単語または表現の意味に沿うような${language}の単語または表現、どのような場面で使うかの説明(日本語で)、それを使った例文を一つ出力してください、複数の候補がある場合はそれら全てを出力してください。一つの単語または表現について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"wordOrPhrase\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"},\"checked\":{\"type\":\"false\"},\"registered\":{\"type\":\"false\"}}} ただし、日本語として意味が通らない文字列が渡された場合は空の配列を返してください。`;
       break
-    case 'ENtoJP':
-      systemInstruction = `次の${language}の単語または表現の日本語での意味と、どのような場面で使うかの説明(日本語で)、その${language}を使った例文を一つ出力してください、複数の意味がある場合はそれら全てを出力してください。一つの日本語での意味とその例文について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"wordOrPhrase\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"},\"checked\":{\"type\":\"false\"},\"registered\":{\"type\":\"false\"}}} ただし、${language}として意味が通らない文字列が渡された場合は空の配列を返してください。`;
+      case 'ENtoJP':
+      console.log("ENtoJP");
+      systemInstruction = `次の${language}の単語または表現の日本語訳と、どのような場面で使うかの説明(日本語で)、その${language}を使った例文を一つ出力してください、複数の意味がある場合はそれら全てを出力してください。一つの日本語での意味とその例文について次のJSON schemaで出力し、配列に格納して出力してください。{\"type\":\"object\",\"properties\":{\"japanese\":{\"type\":\"string\"},\"context\":{\"type\":\"string\"},\"example\":{\"type\":\"string\"},\"checked\":{\"type\":\"false\"},\"registered\":{\"type\":\"false\"}}} ただし、${language}として意味が通らない文字列が渡された場合は空の配列を返してください。`;
       break
     default:
       break;

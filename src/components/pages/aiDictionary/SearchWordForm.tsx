@@ -19,6 +19,8 @@ const SearchWordForm = () => {
   // gemini APIにリクエスト送信、responceを取得
   const handleSearchWordByGemini = async () => {
     const res = await searchWordByGemini(keyword, searchMode, language);
+    console.log(res);
+
     dispatch(setResponse(res));
   }
 
