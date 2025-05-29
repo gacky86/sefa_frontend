@@ -7,6 +7,7 @@ import Cookies from "js-cookie"
 // または送信するリクエストの値をキャメルケース→スネークケースに変換してくれるライブラリ
 
 // ヘッダーに関してはケバブケースのままで良いので適用を無視するオプションを追加
+
 const options = {
   ignoreHeaders: true
 }
