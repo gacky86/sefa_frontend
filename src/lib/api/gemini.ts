@@ -5,17 +5,17 @@ import { SearchMode, CardQA, dictionaryRes, checkLangRes } from "interfaces/inde
 
 const generateSentence = async (systemInstruction: string, text: string) => {
   // AWS本番環境時
-  // return axios.post('https://api.sefa-ai.com/api/gemini/generate_sentence',{
-  //   system_instruction: systemInstruction,
-  //   text: text},
-  //   { headers: {"Content-Type": "application/json"}}
-  // );
-  // ローカル開発時
-  return axios.post('http://localhost:3000/api/gemini/generate_sentence',{
+  return axios.post('https://api.sefa-ai.com/api/gemini/generate_sentence',{
     system_instruction: systemInstruction,
     text: text},
     { headers: {"Content-Type": "application/json"}}
   );
+  // ローカル開発時
+  // return axios.post('http://localhost:3000/api/gemini/generate_sentence',{
+  //   system_instruction: systemInstruction,
+  //   text: text},
+  //   { headers: {"Content-Type": "application/json"}}
+  // );
 }
 
 
