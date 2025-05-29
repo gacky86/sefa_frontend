@@ -14,9 +14,9 @@ const options = {
 
 const client = applyCaseMiddleware(axios.create({
   // AWS本番環境時
-  // baseURL: "https://api.sefa-ai.com/api/v1",
+  baseURL: "https://api.sefa-ai.com/api/v1",
   // ローカル開発時
-  baseURL: "http://localhost:3000/api/v1",
+  // baseURL: "http://localhost:3000/api/v1",
 }), options);
 
 // インターセプター(リクエストを送る直前に処理を割り込み)
@@ -32,8 +32,24 @@ client.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// インターセプター(レスポンスを受け取った時に処理を割り込み)
 client.interceptors.response.use(
   (response) => {
+    const newAccessToken = response.headers["access-token"];
+    const newClient = response.headers["client"];
+    const newUid = response.headers["uid"];
+
+    if (newAccessToken) {
+      Cookies.set("_access_token", newAccessToken);
+      Cookies.set("_client", newClient);
+      Cookies.set("_uid", newUid);
+
+      // axios に再設定（任意）
+      axios.defaults.headers.common["access-token"] = newAccessToken;
+      axios.defaults.headers.common["client"] = newClient;
+      axios.defaults.headers.common["uid"] = newUid;
+    }
+
     // 成功時はそのまま返す
     return response;
   },
