@@ -123,8 +123,8 @@ export type CardQA = {
 };
 
 export type dictionaryRes = {
-  wordOrPhrase?: string;
-  japanese?: string;
+  wordOrPhrase: string;
+  japanese: string;
   context: string;
   example: string;
   checked: boolean;

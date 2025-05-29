@@ -18,7 +18,7 @@ import MainBtn from "components/shared/MainBtn";
 import Modal from "components/layouts/Modal";
 
 const FlashcardRegisterForm = () => {
-  const { response, selectedFlashcardId, searchMode, keyword, language } = useSelector((state:RootState) => state.aiDictionary);
+  const { response, selectedFlashcardId, language } = useSelector((state:RootState) => state.aiDictionary);
 
   const dispatch = useDispatch<AppDispatch>();
   const flashcards = useSelector((state: RootState) => state.flashcards.flashcards);
@@ -51,8 +51,8 @@ const FlashcardRegisterForm = () => {
           const params: CardParams = {
             inputProficiency: 0,
             outputProficiency: 0,
-            english: searchMode === 'ENtoJP' ? keyword : data.wordOrPhrase,
-            japanese: searchMode === 'ENtoJP' ? data.wordOrPhrase : keyword,
+            english: data.wordOrPhrase,
+            japanese: data.japanese,
             context: data.context,
           }
           handleCreateCard(selectedFlashcardId, params);
