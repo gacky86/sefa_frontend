@@ -8,7 +8,14 @@ import TextareaForm from "components/shared/TextareaForm";
 
 // api
 import { createCard } from "lib/api/card";
-import { AxiosError } from "axios";
+import { checkWordExistance } from "lib/api/gemini";
+
+// utils
+import { getLanguageName } from "utils/langNameMapper";
+
+//toast
+import { ToastContainer, toast } from "react-toastify";
+
 
 const NewCard = ({flashcard}:{flashcard:Flashcard}) => {
   const initialCardParams = {
@@ -21,17 +28,25 @@ const NewCard = ({flashcard}:{flashcard:Flashcard}) => {
   const [ btnDisabledJp, setBtnDisabledJp ] = useState<boolean>(true);
   const [ btnDisabledEn, setBtnDisabledEn ] = useState<boolean>(true);
 
-  const handleCreateCard = () => {
-    console.log('handleCreateCard');
-    createCard(flashcard.id, cardParams)
-    .then(() => {
-      console.log('successfully created a new card');
-      setCardParams(initialCardParams);
-    })
-    .catch((e: AxiosError) => {
-      console.log(e);
-    })
-  }
+  const handleCreateCard = async () => {
+    // cardの入力情報と、Flashcard.languageの整合性を確認
+    // trueならそのまま処理を続行
+    // falseなら処理をせずに、メッセージを表示
+    const isExist = await checkWordExistance(flashcard.language, cardParams.english, cardParams.japanese);
+    console.log(isExist);
+
+    if(isExist) {
+      try {
+        const res = createCard(flashcard.id, cardParams);
+        console.log(res);
+        setCardParams(initialCardParams);
+      } catch (error) {
+        console.log(error);
+      };
+    } else {
+      toast(`${flashcard.language}には存在しない単語です`, {position: 'bottom-right'});
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -64,7 +79,7 @@ const NewCard = ({flashcard}:{flashcard:Flashcard}) => {
                         id="japanese"
                         testid="new-card-ja-form"/>
         </div>
-        <h3>English</h3>
+        <h3>{getLanguageName(flashcard.language)}</h3>
         <div className="mb-3">
           <TextareaForm value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
                         onChange={(e) => handleInputChange(e, "english", 255)}
@@ -74,6 +89,9 @@ const NewCard = ({flashcard}:{flashcard:Flashcard}) => {
       </div>
       <div className='mt-5'>
         <MainBtn onClick={() => handleCreateCard()} disabled={btnDisabledJp || btnDisabledEn} text="追加" testid="new-card-submit-btn"/>
+      </div>
+      <div>
+        <ToastContainer />
       </div>
     </div>
   )

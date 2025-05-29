@@ -14,6 +14,9 @@ import { RootState } from 'store/index';
 import { closeModal } from "store/modalSlice";
 import { addFlashcard } from "store/flashcardsSlice";
 
+// util
+import { languages } from "utils/languageList";
+
 const NewFlashcard = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
@@ -28,7 +31,9 @@ const NewFlashcard = () => {
     description: "",
     shared: false,
     inputTarget: 50,
-    outputTarget: 50
+    outputTarget: 50,
+    language: '英語',
+    level: 'CEFR B1'
   }
 
   const [flashcardParams, setFlashcardParams] = useState<FlashcardParams>(initialFlashcard);
@@ -80,6 +85,17 @@ const NewFlashcard = () => {
                           onChange={(e) => handleInputChange(e, 'description', 120)}
                           id="description"
                           testid="flashcard-description-form"/>
+          </div>
+          <div className='flex justify-center gap-1'>
+            <p>設定言語</p>
+            <select name="lang-selector" className="bg-white border-1 border-dark-navy-blue rounded-sm"
+                    onChange={(e) => setFlashcardParams({...flashcardParams, language: e.target.value})}>
+              {/* valueは送信する値 */}
+              {/* 表示する値はタグの間のやつ */}
+              {languages.map((language, key) => {
+                return <option value={language} key={key}>{language}</option>
+              })}
+            </select>
           </div>
         </div>
         <div className='mt-5'>

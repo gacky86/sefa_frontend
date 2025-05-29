@@ -34,9 +34,9 @@ const FCLearning = () => {
   }, [])
 
   useEffect(() => {
-    if (card && learningMode) {
+    if (card && learningMode && flashcard) {
       const fetchQA = async () => {
-        const generateResult = await generateCardQAByGemini(learningMode, card.japanese, card.english);
+        const generateResult = await generateCardQAByGemini(learningMode, card.japanese, card.english, flashcard.language, flashcard.level);
         if (generateResult) {
           setCardQA(generateResult);
         }

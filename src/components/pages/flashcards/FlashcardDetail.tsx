@@ -15,6 +15,7 @@ const FlashcardDetailModal = ({flashcard}:{flashcard:Flashcard}) => {
       {flashcard.shared && (<FaLock className="w-[16px]"/>)}
       <p className="text-xl text-center">{flashcard.title}</p>
       <p className="text-sm text-center">{flashcard.description}</p>
+      <p className="text-sm text-center">{`設定言語：${flashcard.language}`}</p>
       <div className="m-auto w-[90%]">
         <FlashcardProficiency flashcard={flashcard}/>
         <FlashcardTodaysTarget flashcard={flashcard}/>

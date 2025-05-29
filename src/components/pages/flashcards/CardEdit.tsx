@@ -2,19 +2,25 @@ import { useState } from "react";
 import { Flashcard, Card } from "interfaces/index";
 import { updateCard, deleteCard } from "lib/api/card";
 
-
-
 // components
 import ModalCloseBtn from "components/layouts/ModalCloseBtn";
 import MainBtn from "components/shared/MainBtn";
 import DeleteBtn from "components/shared/DeleteBtn";
 import TextareaForm from "components/shared/TextareaForm";
 
+// api
 import { AxiosError } from "axios";
+import { checkWordExistance } from "lib/api/gemini";
 
+// redux
 import { openModal } from "store/modalSlice";
-
 import { useDispatch } from "react-redux";
+
+// utils
+import { getLanguageName } from "utils/langNameMapper";
+
+//toast
+import { ToastContainer, toast } from "react-toastify";
 
 const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
   const dispatch = useDispatch();
@@ -23,15 +29,21 @@ const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
   const [ btnDisabledJp, setBtnDisabledJp ] = useState<boolean>(false);
   const [ btnDisabledEn, setBtnDisabledEn ] = useState<boolean>(false);
 
-  const handleUpdateCard = () => {
-    updateCard(flashcard.id, card.id, cardParams)
-    .then(() => {
-      console.log('updated');
-      dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));
-    })
-    .catch((e: AxiosError) => {
-      console.log(e);
-    })
+  const handleUpdateCard = async () => {
+    // cardの入力情報と、Flashcard.languageの整合性を確認
+    // trueならそのまま処理を続行
+    // falseなら処理をせずに、メッセージを表示
+    const isExist = await checkWordExistance(flashcard.language, cardParams.english, cardParams.japanese);
+    if(isExist) {
+      try {
+        updateCard(flashcard.id, card.id, cardParams);
+        dispatch(openModal({modalType: 'cardsList', modalProps: flashcard}));
+      } catch (error) {
+        console.log(error);
+      };
+    } else {
+      toast(`${flashcard.language}には存在しない単語です`, {position: 'bottom-right'});
+    }
   }
 
   const handleDeleteCard = () => {
@@ -76,7 +88,7 @@ const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
                         id="japanese"
                         testid="edit-card-ja-form"/>
         </div>
-        <h3>English</h3>
+        <h3>{getLanguageName(flashcard.language)}</h3>
         <div className="mb-3">
           <TextareaForm value={cardParams.english} placeholder="English word or phrase that correspond to the Japanese"
                         onChange={(e) => handleInputChange(e, "english", 255)}
@@ -89,6 +101,9 @@ const CardEdit = ({flashcard, card}: {flashcard: Flashcard, card: Card}) => {
       </div>
       <div className='mt-5'>
         <MainBtn onClick={() => handleUpdateCard()} disabled={btnDisabledJp || btnDisabledEn} text={"更新"} data-testid="edit-card-submit-btn" testid="edit-card-submit-btn"/>
+      </div>
+      <div>
+        <ToastContainer />
       </div>
     </div>
   )

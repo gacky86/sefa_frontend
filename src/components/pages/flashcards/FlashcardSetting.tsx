@@ -27,6 +27,8 @@ const FlashcardSettingModal = ({flashcard}: {flashcard:Flashcard}) => {
 
   const dispatch = useDispatch();
 
+  const levels = ['CEFR A1', 'CEFR A2', 'CEFR B1', 'CEFR B2', 'CEFR C1', 'CEFR C2']
+
   const handleUpdateFlashcard = () => {
     updateFlashcard(flashcard.id, flashcardParams)
     .then((res) => {
@@ -95,6 +97,9 @@ const FlashcardSettingModal = ({flashcard}: {flashcard:Flashcard}) => {
                           id="description"
                           testid="flashcard-description-form"/>
           </div>
+          <div>
+            <p>{`設定言語：${flashcard.language}`}</p>
+          </div>
         </div>
 
         {/* 単語帳公開機能は未実装なのでコメントアウト */}
@@ -108,6 +113,19 @@ const FlashcardSettingModal = ({flashcard}: {flashcard:Flashcard}) => {
             <div className="-leading-1 text-start">Output</div>
             <TargetSettingForm value={flashcardParams.outputTarget} id="output-target" onChange={(e) => handleTargetInputChange(e, "outputTarget")} testid="flashcard-output-target-form"/>
           </div>
+        </div>
+
+        <div className="mx-auto w-[80%] py-3 border-b-1">
+          <h3 className="text-left mb-1">出題レベル</h3>
+          <select name="level-selector" className="bg-white border-1 border-dark-navy-blue rounded-sm w-[100%]"
+                  defaultValue={flashcardParams.level}
+                  onChange={(e) => setFlashcardParams({...flashcardParams, level: e.target.value})}>
+            {/* valueは送信する値 */}
+            {/* 表示する値はタグの間のやつ */}
+            {levels.map((level, key) => {
+              return <option value={level} key={key}>{level}</option>
+            })}
+          </select>
         </div>
 
         <div className="text-right w-[80%] mx-auto pt-2 pb-5 text-xl">

@@ -7,15 +7,16 @@ import Cookies from "js-cookie"
 // または送信するリクエストの値をキャメルケース→スネークケースに変換してくれるライブラリ
 
 // ヘッダーに関してはケバブケースのままで良いので適用を無視するオプションを追加
+
 const options = {
   ignoreHeaders: true
 }
 
 const client = applyCaseMiddleware(axios.create({
   // AWS本番環境時
-  baseURL: "https://api.sefa-ai.com/api/v1",
+  // baseURL: "https://api.sefa-ai.com/api/v1",
   // ローカル開発時
-  // baseURL: "http://localhost:3000/api/v1",
+  baseURL: "http://localhost:3000/api/v1",
 }), options);
 
 // インターセプター(リクエストを送る直前に処理を割り込み)
